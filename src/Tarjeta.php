@@ -174,12 +174,12 @@ class Tarjeta implements TarjetaInterface
         if ($this->dependeHora()) {
             if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
                 $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto * 0.33);
+                return 0;
             }
         } else {
             if (($this->tiempo->time() - $this->UltimaHora) < 5400) {
                 $this->Ultimotrasbordo = 1;
-                return ($ValorBoleto * 0.33);
+                return 0;
             }
         }
         $this->Ultimotrasbordo = 0;
