@@ -50,7 +50,6 @@ class TarjetaTest extends TestCase
         $this->assertFalse($tarjeta->recargar(15));
         $this->assertEquals($tarjeta->obtenerSaldo(), 0);
     }
-    /*
      * Comprueba que la tarjeta tiene viajes plus
     public function testViajesPlus()
     {
@@ -67,8 +66,6 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
-
-    /*
      * Comprueba que se puede recargargar el viaje plus
     public function testRecargarPlus()
     {
@@ -86,8 +83,6 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
-
-    /*
     Pruebo muchas cosas de trasbordo, con respecto al funcionamiento con el tiempo
     public function testTrasbordo()
     {
@@ -174,8 +169,6 @@ class TarjetaTest extends TestCase
         $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 102.864);
     }
-
-    /*
     Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
     public function testUnTrasbordo()
     {
@@ -196,7 +189,6 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 165.516);
     }
 
-    /*
     Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
     public function testTrasbordo2()
     {
