@@ -35,9 +35,9 @@ class Tarjeta implements TarjetaInterface
      * Funcion para recargar la tarjeta.
      *
      * @param float $monto
-     *   Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 510,15 y 962,59)
-     *   Cuando se cargan $510,15 se acreditan de forma adicional: 81,93
-     *   Cuando se cargan $962,59 se acreditan de forma adicional: 221,58
+     *   Las cargas aceptadas de tarjetas son: (10, 20, 30, 50, 100, 1119.90 y 2114.11)
+     *   Cuando se cargan $1119,9 se acreditan de forma adicional: 180,10
+     *   Cuando se cargan $2114,11 se acreditan de forma adicional: 485,89
      *
      * @return bool
      *   Si fue posible realizar la carga.
@@ -61,11 +61,11 @@ class Tarjeta implements TarjetaInterface
             case 100:
                 $this->saldo += 100;
                 break;
-            case 510.15:
-                $this->saldo += 592.08;
+            case 1119.90:
+                $this->saldo += 1300.00;
                 break;
-            case 962.59:
-                $this->saldo += 1184.17;
+            case 2114.11:
+                $this->saldo += 2600.00;
                 break;
             default:
                 //Devuelve false si el monto ingresado no es válido
