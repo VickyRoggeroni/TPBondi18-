@@ -26,7 +26,7 @@ class ColectivoTest extends TestCase
         Probamos la realizacion de una viaje
          */
         $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta));
-        $this->assertEquals($tarjeta->obtenerSaldo(), 577.28);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 510.15);
     }
 
     /**
