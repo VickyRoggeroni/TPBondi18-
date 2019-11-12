@@ -84,7 +84,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 30);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 30);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
 
@@ -128,7 +128,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 59.275000000000006);
         $tiempo->avanzar(5500);
         $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 121.116);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 26.775000000000006);
 
         //Prueba pagar trasbordo un dia normal antes de los 60 minutos
         $tiempo->avanzar(60800);

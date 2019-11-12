@@ -37,7 +37,7 @@ class MedioUniTest extends TestCase
         $this->assertEquals($medio->restarSaldo("153"), true);
         $this->assertEquals($medio->obtenerSaldo(), 2.5);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $this->assertEquals($medio->obtenerSaldo(), 11.20);
         $tiempo->avanzar(300);
         $this->assertEquals($medio->restarSaldo("153"), true);
@@ -137,6 +137,6 @@ class MedioUniTest extends TestCase
         $tiempo->avanzar(3500);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 5.3625");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 172.916);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 140.52499999999998);
     }
 }
