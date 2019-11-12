@@ -35,7 +35,7 @@ class MedioUniTest extends TestCase
         $this->assertEquals($medio->obtenerSaldo(), 2.5);
         $tiempo->avanzar(300);
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 26.00);
+        $this->assertEquals($medio->obtenerSaldo(), 2.5);
         $tiempo->avanzar(300);
         $this->assertEquals($medio->restarSaldo("153"), true);
         $this->assertEquals($medio->obtenerSaldo(), 11.20);
@@ -107,7 +107,7 @@ class MedioUniTest extends TestCase
         $this->assertEquals($medio->obtenerSaldo(), 2.5);
         $tiempo->avanzar(10000);
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 40.8);
+        $this->assertEquals($medio->obtenerSaldo(), 2.5);
     }
 
     /*
