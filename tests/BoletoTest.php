@@ -50,14 +50,14 @@ class BoletoTest extends TestCase
 
         $this->assertEquals($boleto->obtenerAbonado(), 32.5);
 
-        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 14.8");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 32.5");
 
         $this->assertEquals($boleto->obtenerTipo(), "TrabajoTarjeta\Tarjeta");
 
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 14.8");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 32.5");
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 14.8");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 32.5");
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerDescripcion(), "ViajePlus 0.0");
         $boleto = $colectivo->pagarCon($tarjeta);
@@ -99,23 +99,23 @@ class BoletoTest extends TestCase
 
         $this->assertEquals($boleto->obtenerAbonado(), 16.25);
 
-        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 7.4");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 16.25");
 
         $this->assertEquals($boleto->obtenerTipo(), "TrabajoTarjeta\Medio");
 
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 7.4");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 16.25");
         $this->assertEquals($boleto->obtenerSaldo(), 15.2);
 
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 7.4");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 16.25");
         $this->assertEquals($boleto->obtenerSaldo(), 7.8);
 
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 7.4");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 16.25");
         $this->assertEquals($boleto->obtenerSaldo(), 0.4);
 
         $tiempo->avanzar(300);
@@ -163,18 +163,18 @@ class BoletoTest extends TestCase
 
         $this->assertEquals($boleto->obtenerAbonado(), 16.25);
 
-        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 7.4");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 16.25");
 
         $this->assertEquals($boleto->obtenerTipo(), "TrabajoTarjeta\MedioUniversitario");
 
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 7.4");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Medio 16.25");
         $this->assertEquals($boleto->obtenerSaldo(), 15.2);
 
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 14.8");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Normal 32.5");
         $this->assertEquals($boleto->obtenerSaldo(), 0.4);
 
         $tiempo->avanzar(300);
@@ -254,7 +254,7 @@ class BoletoTest extends TestCase
 
         $this->assertEquals($boleto->obtenerIdTarjeta(), 0);
 
-        $this->assertEquals($boleto->obtenerSaldo(), 7.5);
+        $this->assertEquals($boleto->obtenerSaldo(), 35.0);
 
         $this->assertEquals($boleto->obtenerAbonado(), 0.0);
 
