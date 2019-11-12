@@ -18,7 +18,7 @@ class BoletoTest extends TestCase
         $colectivo = new Colectivo(133, "RosarioBus", 69);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerValor(), null);
-        $tarjeta->recargar(50);
+        $tarjeta->recargar(100);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerValor(), 14.8);
 
