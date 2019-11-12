@@ -17,6 +17,11 @@ class Completo extends Tarjeta
      * @return int
      *   El valor del boleto.
      */
+    public function franquicia()
+    {
+        return 0; //devuelve 0 si es Completo
+    }
+
     protected function calculaValor($linea)
     {
         return $this->ValorBoleto; //Devuelve el valor ya almacenado
