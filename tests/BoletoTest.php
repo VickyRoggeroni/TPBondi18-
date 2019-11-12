@@ -95,8 +95,6 @@ class BoletoTest extends TestCase
 
         $this->assertEquals($boleto->obtenerIdTarjeta(), 0);
 
-        $this->assertEquals($boleto->obtenerCantPlus(), 0);
-
         $this->assertEquals($boleto->obtenerSaldo(), 48.75);
 
         $this->assertEquals($boleto->obtenerAbonado(), 16.25);
