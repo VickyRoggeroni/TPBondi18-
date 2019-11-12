@@ -31,7 +31,7 @@ class BoletoTest extends TestCase
         $colectivo = new Colectivo(133, "RosarioBus", 69);
         $tiempo = new TiempoFalso();
         $tarjeta = new Tarjeta(0, $tiempo);
-        $tarjeta->recargar(50);
+        $tarjeta->recargar(100);
         $tiempo->avanzar(250);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerColectivo(), $colectivo);
@@ -80,7 +80,7 @@ class BoletoTest extends TestCase
         $colectivo = new Colectivo(133, "RosarioBus", 69);
         $tiempo = new TiempoFalso();
         $tarjeta = new Medio(0, $tiempo);
-        $tarjeta->recargar(30);
+        $tarjeta->recargar(65);
         $tiempo->avanzar(250);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerColectivo(), $colectivo);
@@ -144,7 +144,7 @@ class BoletoTest extends TestCase
         $colectivo = new Colectivo(133, "RosarioBus", 69);
         $tiempo = new TiempoFalso();
         $tarjeta = new \TrabajoTarjeta\MedioUniversitario(0, $tiempo);
-        $tarjeta->recargar(30);
+        $tarjeta->recargar(65);
         $tiempo->avanzar(250);
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerColectivo(), $colectivo);
@@ -238,7 +238,7 @@ class BoletoTest extends TestCase
         $colectivo = new Colectivo(133, "RosarioBus", 69);
         $tiempo = new TiempoFalso();
         $tarjeta = new Tarjeta(0, $tiempo);
-        $tarjeta->recargar(100);
+        $tarjeta->recargar(40);
         $tiempo->avanzar(250);
         $colectivo->pagarCon($tarjeta);
         $boleto = $colectivo->pagarCon($tarjeta);
@@ -254,7 +254,7 @@ class BoletoTest extends TestCase
 
         $this->assertEquals($boleto->obtenerIdTarjeta(), 0);
 
-        $this->assertEquals($boleto->obtenerSaldo(), 35.0);
+        $this->assertEquals($boleto->obtenerSaldo(), 7.5);
 
         $this->assertEquals($boleto->obtenerAbonado(), 0.0);
 
