@@ -127,7 +127,7 @@ class BoletoTest extends TestCase
         $boleto = $colectivo->pagarCon($tarjeta);
         $this->assertEquals($boleto->obtenerDescripcion(), "UltimoPlus 0.0");
 
-        $tarjeta->recargar(30);
+        $tarjeta->recargar(50);
         $tarjeta->recargar(20);
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
@@ -147,7 +147,7 @@ class BoletoTest extends TestCase
         $colectivo = new Colectivo(133, "RosarioBus", 69);
         $tiempo = new TiempoFalso();
         $tarjeta = new \TrabajoTarjeta\MedioUniversitario(0, $tiempo);
-        $tarjeta->recargar(30);
+        $tarjeta->recargar(50);
         $tarjeta->recargar(20);
         $tiempo->avanzar(250);
         $boleto = $colectivo->pagarCon($tarjeta);
