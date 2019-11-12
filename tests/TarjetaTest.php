@@ -61,7 +61,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 20);
 
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 20);
 
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
@@ -79,7 +79,7 @@ class TarjetaTest extends TestCase
         $this->assertTrue($tarjeta->recargar(20));
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 20);
         $this->assertTrue($tarjeta->recargar(10));
         $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
@@ -112,7 +112,7 @@ class TarjetaTest extends TestCase
         $tiempo->avanzar(4200);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Normal 10.725");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 180.316);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 156.775);
 
         //Pruebo pagar un trasbordo en un mismo colectivo
         $tiempo->avanzar(7200);
@@ -196,7 +196,7 @@ class TarjetaTest extends TestCase
         $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 156.775);
         $colectivo3->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 165.516);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 124.275);
     }
 
     /*
