@@ -8,7 +8,6 @@ class Medio extends Tarjeta
 {
 
     protected $UltimaHora = -300; //Para poder usarlo apenas se compra
-    protected $ValorBoleto = (Precios::boleto)/2;
 
     public function franquicia()
     {
