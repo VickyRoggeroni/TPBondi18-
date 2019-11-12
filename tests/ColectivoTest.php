@@ -15,11 +15,11 @@ class ColectivoTest extends TestCase
         $tiempo = new Tiempo;
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(510.15);
-        $colectivo = new Colectivo(122, "Semtur", 37);
+        $colectivo = new Colectivo("102 Negro" "Semtur", 37);
         /*
         Probamos la asignacion de parametros iniciales
          */
-        $this->assertEquals($colectivo->linea(), 122);
+        $this->assertEquals($colectivo->linea(), "102 Negro");
         $this->assertEquals($colectivo->empresa(), "Semtur");
         $this->assertEquals($colectivo->numero(), 37);
         /*
