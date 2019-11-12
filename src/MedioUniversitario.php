@@ -6,8 +6,6 @@ class MedioUniversitario extends Medio
 
     protected $DisponiblesDiarios = 0; //Variable que indica la disponibilidad de medios diarios
 
-    protected $ValorBoleto = 0;
-
     public function franquicia()
     {
         return 2; //devuelve 2 si es Trasbordo
