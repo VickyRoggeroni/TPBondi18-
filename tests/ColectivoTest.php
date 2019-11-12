@@ -10,11 +10,8 @@ class ColectivoTest extends TestCase
     /**
      * Probamos la creacion del colectivo y la realizacion de un pago
      */
-    public function testPagarColectivo()
+    public function testColectivo()
     {
-        $tiempo = new Tiempo;
-        $tarjeta = new Tarjeta(0, $tiempo);
-        $tarjeta->recargar(510.15);
         $colectivo = new Colectivo("102 Negro" "Semtur", 37);
         /*
         Probamos la asignacion de parametros iniciales
