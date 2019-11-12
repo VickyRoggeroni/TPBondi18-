@@ -69,7 +69,7 @@ class BoletoTest extends TestCase
 
         $tarjeta->recargar(100);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Abona viajes plus 32.5 y Normal 32.5");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Abona viajes plus 65 y Normal 32.5");
     }
 
     /**
@@ -94,6 +94,8 @@ class BoletoTest extends TestCase
         $this->assertEquals($boleto->obtenerTarjeta(), $tarjeta);
 
         $this->assertEquals($boleto->obtenerIdTarjeta(), 0);
+
+        $this->assertEquals(Boleto::cantplus, 0);
 
         $this->assertEquals($boleto->obtenerSaldo(), 48.75);
 
