@@ -45,7 +45,7 @@ class MedioTest extends TestCase
         $this->assertEquals($medio->restarSaldo("153"), false);
         $tiempo->avanzar(300);
         for (($i = 0); $i < 155; ++$i) {
-            $this->assertEquals($medio->restarSaldo("153"), true);
+            $this->assertEquals($medio->restarSaldo("153"), false);
             $tiempo->avanzar(300);
         }
         $this->assertEquals($medio->restarSaldo("153"), true);
