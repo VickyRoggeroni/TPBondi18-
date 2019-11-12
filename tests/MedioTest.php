@@ -24,13 +24,13 @@ class MedioTest extends TestCase
     {
         $tiempo = new TiempoFalso;
         $medio = new Medio(0, $tiempo);
-        $this->assertTrue($medio->recargar(20));
-        $this->assertEquals($medio->obtenerSaldo(), 20);
+        $this->assertTrue($medio->recargar(40));
+        $this->assertEquals($medio->obtenerSaldo(), 40);
         $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->obtenerSaldo(), 12.6);
+        $this->assertEquals($medio->obtenerSaldo(), 23.75);
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 5.2);
+        $this->assertEquals($medio->obtenerSaldo(), 7.5);
         $tiempo->avanzar(300);
         $this->assertEquals($medio->restarSaldo("153"), true);
         $tiempo->avanzar(300);
@@ -106,10 +106,10 @@ class MedioTest extends TestCase
         $this->assertEquals(date('G', $tiempo->time()), '8');
         $this->assertEquals(date('d-m', $tiempo->time()), "01-01");
         $this->assertEquals($boleto->obtenerFecha(), "01/01/1970 08:00:00");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 192.6);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 183.75);
         $tiempo->avanzar(4200);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 2.442");
+        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 5.3625");
         $this->assertEquals($tarjeta->obtenerSaldo(), 190.158);
     }
 }

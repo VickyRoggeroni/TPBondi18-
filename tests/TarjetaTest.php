@@ -57,11 +57,11 @@ class TarjetaTest extends TestCase
         $tiempo = new Tiempo();
         $tarjeta = new Tarjeta(0, $tiempo);
 
-        $this->assertTrue($tarjeta->recargar(20));
-        $this->assertEquals($tarjeta->obtenerSaldo(), 20);
+        $this->assertTrue($tarjeta->recargar(40));
+        $this->assertEquals($tarjeta->obtenerSaldo(), 40);
 
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 7.5);
 
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
@@ -76,15 +76,15 @@ class TarjetaTest extends TestCase
         $tiempo = new Tiempo;
         $tarjeta = new Tarjeta(0, $tiempo);
 
-        $this->assertTrue($tarjeta->recargar(20));
+        $this->assertTrue($tarjeta->recargar(40));
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
-        $this->assertTrue($tarjeta->recargar(10));
-        $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 7.5);
+        $this->assertTrue($tarjeta->recargar(30));
+        $this->assertEquals($tarjeta->obtenerSaldo(), 5);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 5);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
 
@@ -183,7 +183,7 @@ class TarjetaTest extends TestCase
     public function testUnTrasbordo()
     {
         $tiempo = new Tiempo();
-        $tiempo->agregarFeriado("01-01-18");
+        $tiempo->agregarFeriado("01-01-20");
         $this->AssertFalse($tiempo->esFeriado());
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(100);
