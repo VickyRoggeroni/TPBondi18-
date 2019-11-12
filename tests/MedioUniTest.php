@@ -40,7 +40,7 @@ class MedioUniTest extends TestCase
         $this->assertEquals($medio->restarSaldo("153"), false);
         $this->assertEquals($medio->obtenerSaldo(), 2.5);
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->restarSaldo("153"), false);
         $this->assertEquals($medio->restarSaldo("153"), false);
         $this->assertEquals($medio->obtenerSaldo(), 11.20);
         $tiempo->avanzar(300);
