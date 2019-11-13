@@ -6,6 +6,7 @@ Tarjeta medio
 /*/
 class Medio extends Tarjeta
 {
+    include './Precios.php';
 
     protected $UltimaHora = -300; //Para poder usarlo apenas se compra
 
@@ -55,6 +56,6 @@ class Medio extends Tarjeta
      */
     protected function calculaValor($linea)
     {
-        return ($this->puedeTrasbordo($linea, ($this->ValorBoleto / 2)));
+        return ($this->puedeTrasbordo($linea, ($this->boleto / 2)));
     }
 }
