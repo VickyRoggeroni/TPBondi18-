@@ -9,6 +9,11 @@ class Medio extends Tarjeta
 
     protected $UltimaHora = -300; //Para poder usarlo apenas se compra
 
+    public function franquicia()
+    {
+        return 1; //devuelve 1 si es Medio
+    }
+
     /**
      * Resta el saldo a la tarjeta, pero con una limitacion de no poder pagar un boleto si pasaron menos de 5 minutos.
      *

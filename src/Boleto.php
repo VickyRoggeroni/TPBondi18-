@@ -57,6 +57,11 @@ class Boleto implements BoletoInterface
         return $this->valor;
     }
 
+    public function obtenerCantPlus()
+    {
+        return $this->cantplus;
+    }
+
     /**
      * Devuelve un objeto que respresenta el colectivo donde se viajó.
      *

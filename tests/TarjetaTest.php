@@ -56,11 +56,11 @@ class TarjetaTest extends TestCase
         $tiempo = new Tiempo();
         $tarjeta = new Tarjeta(0, $tiempo);
 
-        $this->assertTrue($tarjeta->recargar(20));
-        $this->assertEquals($tarjeta->obtenerSaldo(), 20);
+        $this->assertTrue($tarjeta->recargar(50));
+        $this->assertEquals($tarjeta->obtenerSaldo(), 50);
 
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 17.5);
 
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
@@ -72,15 +72,15 @@ class TarjetaTest extends TestCase
         $tiempo = new Tiempo;
         $tarjeta = new Tarjeta(0, $tiempo);
 
-        $this->assertTrue($tarjeta->recargar(20));
+        $this->assertTrue($tarjeta->recargar(50));
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 5.2);
-        $this->assertTrue($tarjeta->recargar(10));
-        $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 17.5);
+        $this->assertTrue($tarjeta->recargar(30));
+        $this->assertEquals($tarjeta->obtenerSaldo(), 15);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 0.4);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 15);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
     Pruebo muchas cosas de trasbordo, con respecto al funcionamiento con el tiempo
@@ -101,10 +101,10 @@ class TarjetaTest extends TestCase
         $this->assertEquals(date('G', $tiempo->time()), '8');
         $this->assertEquals(date('d-m', $tiempo->time()), "01-01");
         $this->assertEquals($boleto->obtenerFecha(), "01/01/1970 08:00:00");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 185.2);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
         $tiempo->avanzar(4200);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Normal 4.884");
+        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Normal 10.725");
         $this->assertEquals($tarjeta->obtenerSaldo(), 180.316);
 
         //Pruebo pagar un trasbordo en un mismo colectivo
@@ -173,7 +173,7 @@ class TarjetaTest extends TestCase
     public function testUnTrasbordo()
     {
         $tiempo = new Tiempo();
-        $tiempo->agregarFeriado("01-01-18");
+        $tiempo->agregarFeriado("01-01-20");
         $this->AssertFalse($tiempo->esFeriado());
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(100);
@@ -182,7 +182,7 @@ class TarjetaTest extends TestCase
         $colectivo2 = new Colectivo(134, "RosarioBus", 52);
         $colectivo3 = new Colectivo(155, "RosarioBus", 33);
         $colectivo1->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 185.2);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
         $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 180.316);
         $colectivo3->pagarCon($tarjeta);
@@ -201,7 +201,7 @@ class TarjetaTest extends TestCase
         $colectivo1 = new Colectivo(122, "Semtur", 37);
         $colectivo2 = new Colectivo(134, "RosarioBus", 52);
         $colectivo1->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 185.2);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
         $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 180.316);
 
