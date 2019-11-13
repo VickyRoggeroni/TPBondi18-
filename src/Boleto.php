@@ -166,10 +166,10 @@ class Boleto implements BoletoInterface
                 case ($this->boletoCompleto / 2):
                     $StringAuxiliar = "Medio " . ($this->valor);
                     break;
-                case (($this->boletoCompleto / 2) * 0.33):
+                case (($this->boletoCompleto / 2) * 0):
                     $StringAuxiliar = "Trasbordo Medio " . ($this->valor);
                     break;
-                case ($this->boletoCompleto * 0.33):
+                case ($this->boletoCompleto * 0):
                     $StringAuxiliar = "Trasbordo Normal " . ($this->valor);
                     break;
                 case ($this->boletoCompleto):
