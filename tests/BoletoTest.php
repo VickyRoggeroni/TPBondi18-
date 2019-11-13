@@ -131,13 +131,13 @@ class BoletoTest extends TestCase
         $tarjeta->recargar(20);
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Abona viajes plus 60 y ViajePlus 0.0");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Abona viajes plus 65 y ViajePlus 0.0");
 
         $tarjeta->recargar(30);
-        $tarjeta->recargar(10);
+        $tarjeta->recargar(30);
         $tiempo->avanzar(300);
         $boleto = $colectivo->pagarCon($tarjeta);
-        $this->assertEquals($boleto->obtenerDescripcion(), "Abona viajes plus 32.5 y Medio 16.25");
+        $this->assertEquals($boleto->obtenerDescripcion(), "Abona viajes plus 32.5 y Normal 32.5");
     }
     /**
      * Comprueba retorno de datos Medio Universitario
