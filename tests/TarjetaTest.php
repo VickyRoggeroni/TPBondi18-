@@ -18,7 +18,7 @@ class TarjetaTest extends TestCase
 
         $this->assertTrue($tarjeta->recargar(10));
         $this->assertEquals($tarjeta->obtenerSaldo(), 10);
-/*
+
         $this->assertTrue($tarjeta->recargar(20));
         $this->assertEquals($tarjeta->obtenerSaldo(), 30);
 
@@ -36,13 +36,14 @@ class TarjetaTest extends TestCase
 
         $this->assertTrue($tarjeta->recargar(100));
         $this->assertEquals($tarjeta->obtenerSaldo(), 4110);
-        */
+
     }
     
 
     /**
      * Comprueba que la tarjeta no puede cargar saldos invalidos.
     public function testCargaSaldoInvalido()
+    */
     {
         $tiempo = new Tiempo();
         $tarjeta = new Tarjeta(0, $tiempo);
@@ -50,7 +51,9 @@ class TarjetaTest extends TestCase
         $this->assertFalse($tarjeta->recargar(15));
         $this->assertEquals($tarjeta->obtenerSaldo(), 0);
     }
+    /*
      * Comprueba que la tarjeta tiene viajes plus
+     */
     public function testViajesPlus()
     {
         $tiempo = new Tiempo();
@@ -66,7 +69,9 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
+    /*
      * Comprueba que se puede recargargar el viaje plus
+     */
     public function testRecargarPlus()
     {
         $tiempo = new Tiempo;
@@ -83,7 +88,9 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 15);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
     }
+    /*
     Pruebo muchas cosas de trasbordo, con respecto al funcionamiento con el tiempo
+    */
     public function testTrasbordo()
     {
         $tiempo = new TiempoFalso(0);
@@ -169,7 +176,8 @@ class TarjetaTest extends TestCase
         $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 102.864);
     }
-    Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
+    
+//     Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
     public function testUnTrasbordo()
     {
         $tiempo = new Tiempo();
@@ -189,7 +197,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 165.516);
     }
 
-    Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
+//     Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
     public function testTrasbordo2()
     {
         $tiempo = new Tiempo();
@@ -207,4 +215,4 @@ class TarjetaTest extends TestCase
 
     }
 }
-*/
+
