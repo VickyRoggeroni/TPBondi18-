@@ -6,24 +6,14 @@ class Tarjeta implements TarjetaInterface
 {
 
     protected $saldo = 0;
-
-
     protected $ValorBoleto = Precios::boleto;
-
     protected $plus = 0;
-
     protected $UltimoValorPagado = null;
-
     protected $UltimaHora = 0;
-
     protected $UltimoColectivo;
-
     protected $pagoplus = 0;
-
     protected $Ultimotrasbordo = 1;
-
     protected $id;
-
     protected $tiempo;
 
     public function __construct($id, TiempoInterface $tiempo)
@@ -130,7 +120,7 @@ class Tarjeta implements TarjetaInterface
             $this->UltimaHora = $this->tiempo->time(); //Se guarda la hora de la transaccion
             return true; //Se finaliza la funcion
         }
-        if ($this->plus < 2) { //Si tiene plus disponibles
+        else if ($this->plus < 2) { //Si tiene plus disponibles
             $this->plus++; // Se le resta
             $this->UltimoValorPagado = 0.0; //Se indica que se pago 0.0
             $this->UltimoColectivo = $linea;
@@ -168,7 +158,7 @@ class Tarjeta implements TarjetaInterface
      */
     protected function puedeTrasbordo($linea, $ValorBoleto)
     {
-        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo) {
+        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo == 1) {
             $this->Ultimotrasbordo = 0;
             return $ValorBoleto;
         }
