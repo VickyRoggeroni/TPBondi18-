@@ -5,30 +5,18 @@ namespace TrabajoTarjeta;
 class Boleto implements BoletoInterface
 {
 
-    protected $valor; //Valor pagado
-
-    protected $colectivo; //Colectivo en el que se pago
-
-    protected $tarjeta; //Tarjeta con la que se pago
-
-    protected $cantplus; //Si se pagaron plus en la ultima recarga
-
-    protected $hora; //hora de pago
-
-    protected $idtarjeta; //id de la tarjeta
-
-    protected $boletoCompleto; //Valor de un boleto completo de colectivo para el calculo del plus
-
-    protected $linea; //Linea del colectivo
-
-    protected $saldo; //Saldo restante
-
-    protected $descripcion; //Descripcion del boleto plus
-
-    protected $Tipo; //Tipo de tarjeta que se utilizo
-
-    protected $usoPlus; //Si se utilizaron plus
-
+    protected $valor;                   //Valor pagado
+    protected $colectivo;               //Colectivo en el que se pago
+    protected $tarjeta;                 //Tarjeta con la que se pago
+    protected $cantplus;                //Si se pagaron plus en la ultima recarga
+    protected $hora;                    //hora de pago
+    protected $idtarjeta;               //id de la tarjeta
+    protected $boletoCompleto;          //Valor de un boleto completo de colectivo para el calculo del plus
+    protected $linea;                   //Linea del colectivo
+    protected $saldo;                   //Saldo restante
+    protected $descripcion;             //Descripcion del boleto plus        //MMMMMMMMM DUDOSO ESTO       
+    protected $Tipo;                    //Tipo de tarjeta que se utilizo
+    protected $usoPlus;                 //Si se utilizaron plus              //Pa que carajo quiero esto si ya esta el cantPlus.
     protected $PagoPlus;
 
     public function __construct($colectivo, $tarjeta)
@@ -143,43 +131,4 @@ class Boleto implements BoletoInterface
         return $this->Tipo;
     }
 
-    /**
-     * Devuelve un string que es la descripcion de el boleto.
-     *
-     * @return String
-     */
-    public function obtenerDescripcion()
-    {
-        $StringAuxiliar = ""; //definimos una variable auxiliar para poder armarla
-        if ($this->valor == 0.0) { //si pago 0.0
-            if ($this->Tipo == "TrabajoTarjeta\Completo") { //Y la tarjeta es tipo completo, devolvemos que el pago un boleto de tipo completo
-                return "Completo 0.0";
-            } else { //si no
-                if ($this->usoPlus == 1) { //Y si solo uso un plus se muestra "ViajePlus 0.0" o si uso los 2 "UltimoPlus 0.0"
-                    $StringAuxiliar = "ViajePlus 0.0";
-                } else {
-                    $StringAuxiliar = "UltimoPlus 0.0";
-                }
-            }
-        } else { //Si pago algun valor
-            switch ($this->valor) { //dependiendo de lo que pago va a ser diferentes textos
-                case ($this->boletoCompleto / 2):
-                    $StringAuxiliar = "Medio " . ($this->valor);
-                    break;
-                case (($this->boletoCompleto / 2) * 0):
-                    $StringAuxiliar = "Trasbordo Medio " . ($this->valor);
-                    break;
-                case ($this->boletoCompleto * 0):
-                    $StringAuxiliar = "Trasbordo Normal " . ($this->valor);
-                    break;
-                case ($this->boletoCompleto):
-                    $StringAuxiliar = "Normal " . ($this->valor);
-                    break;
-            }
-        }
-        if ($this->cantplus != 0) { // Si pago algun plus une lo que ya formo en el contruct y lo devuelve
-            return $this->PagoPlus . $StringAuxiliar;
-        }
-        return $StringAuxiliar; // si no solo devuelve lo que pago
-    }
-}
+   
