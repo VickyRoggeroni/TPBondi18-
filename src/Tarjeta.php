@@ -158,23 +158,7 @@ class Tarjeta implements TarjetaInterface
      */
     protected function puedeTrasbordo($linea, $ValorBoleto)
     {
-        if ($this->UltimoColectivo == $linea || $this->UltimoValorPagado == 0.0 || $this->Ultimotrasbordo == 1) {
-            $this->Ultimotrasbordo = 0;
-            return $ValorBoleto;
-        }
-        if ($this->dependeHora()) {
-            if (($this->tiempo->time() - $this->UltimaHora) < 3600) {
-                $this->Ultimotrasbordo = 1;
-                return 0;
-            }
-        } else {
-            if (($this->tiempo->time() - $this->UltimaHora) < 5400) {
-                $this->Ultimotrasbordo = 1;
-                return 0;
-            }
-        }
-        $this->Ultimotrasbordo = 0;
-        return $ValorBoleto;
+        
     }
 
     /**
