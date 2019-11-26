@@ -9,6 +9,10 @@ interface TiempoInterface
 
     public function agregarFeriado($dia);
 
-    public function esFeriado();
+    public function EsFeriado();
+    
+    public function esDiaDeSemana();
+    
+    public function EsDeNoche();
 
 }
