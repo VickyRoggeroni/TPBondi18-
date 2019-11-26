@@ -65,10 +65,12 @@ class Tiempo implements TiempoInterface
     }
     
     public function esDiaDeSemana(){
-        return (date() != sabado || date() != domingo);
+        $fecha = date("l");                             
+        return ($fecha != "Saturday" || $fecha != "Sunday");
     }
 
     public function EsDeNoche(){
-        return (tiempo >= 22hr || tiempo <= 6hr)            //Entre las 10 de la noche y las 6 de la mañana
+        $hora = date("H");                             //Muestra la hora en formato 24hrs
+        return ($hora >= 22 || $hora <= 06)            //Entre las 10 de la noche y las 6 de la mañana
     }
 }
