@@ -6,7 +6,6 @@ Tarjeta medio
 /*/
 class Medio extends Tarjeta
 {
-    include './Precios.php';
 
     protected $UltimaHora = -300; //Para poder usarlo apenas se compra
 
