@@ -112,7 +112,7 @@ class Tarjeta implements TarjetaInterface
      */
     public function restarSaldo($linea)
     {
-        if( puedeTransbordo() ){
+        if( puedeTransbordo($linea) ){
 				
 			$this->UltimoValorPagado = 0.0;
 			$this->UltimoColectivo = $linea;
