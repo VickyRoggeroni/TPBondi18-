@@ -57,10 +57,18 @@ class Tiempo implements TiempoInterface
      *
      * @return bool
      */
-    public function esFeriado()
+    public function EsFeriado()
     {
         $fecha = date('d-m-y', $this->time());
 
         return in_array($fecha, $this->feriados);
+    }
+    
+    public function esDiaDeSemana(){
+        return (date() != sabado || date() != domingo);
+    }
+
+    public function EsDeNoche(){
+        return (tiempo >= 22hr || tiempo <= 6hr)            //Entre las 10 de la noche y las 6 de la mañana
     }
 }
