@@ -3,8 +3,6 @@ namespace TrabajoTarjeta;
 
 class MedioUniversitario extends Medio
 {
-    include 'Precios.php';
-
     protected $DisponiblesDiarios = 0; //Variable que indica la disponibilidad de medios diarios
 
     public function franquicia()
@@ -29,8 +27,8 @@ class MedioUniversitario extends Medio
         if ($ActualFecha > $UltimaFecha) {$this->DisponiblesDiarios = 0;} // Si cambio de dia entre la utilizacion anterior se reinicia la disponibilidad
         if ($this->DisponiblesDiarios < 2) { //Si dispone de Medios
             $this->DisponiblesDiarios++; //Le saca uno
-            $BoletoTemporal = (($this->boleto) / 2); //Y devualve la mitad del valor
-        } else {$BoletoTemporal = $this->boleto;} // Devuelve el valor entero
+            $BoletoTemporal = (Precios::medio); //Y devualve la mitad del valor
+        } else {$BoletoTemporal = Precios::normal;} // Devuelve el valor entero
 
         return ($this->puedeTrasbordo($linea,$BoletoTemporal));
     }
