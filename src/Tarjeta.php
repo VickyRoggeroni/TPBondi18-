@@ -12,7 +12,7 @@ class Tarjeta implements TarjetaInterface
     protected $UltimaHora = 0;
     protected $UltimoColectivo;
     protected $pagoplus = 0;
-    protected $Trasbordo = 0;
+    protected $trasbordo = 0;
     protected $id;
     protected $tiempo;
 
@@ -157,7 +157,11 @@ class Tarjeta implements TarjetaInterface
      */
     protected function puedeTrasbordo($linea)
     {
-        if($this->UltimoColectivo != $linea || $this->UltimoValorPagado != 0.0 || $this->transbordo != 1){   //Se fija condiciones
+        if($this->UltimoValorPagado != 0.0 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
+            $this->transbordo = 0; //Se va a resetear el transbordo
+        }
+	    
+	if($this->UltimoColectivo != $linea || $this->UltimoValorPagado != 0.0 || $this->transbordo != 1){   //Se fija condiciones
             if ($this->Tiempo->EsFeriado()){
                 return (($this->tiempo->time() - $this->UltimaHora) < 7200);
             }            
