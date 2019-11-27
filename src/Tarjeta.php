@@ -114,19 +114,20 @@ class Tarjeta implements TarjetaInterface
     {
         if( puedeTransbordo($linea) ){
 				
-			$this->UltimoValorPagado = 0.0;
+			$this->UltimoValorPagado = Precios::transbordo;
 			$this->UltimoColectivo = $linea;
 			$this->UltimaHora = $this->tiempo->time();
 			return true;
 		}
 		elseif(AlcanzaSaldo()){
-			$this->UltimoValorPagado = 32.5;
+			$this->UltimoValorPagado = $ValorBoleto;
 			$this->UltimoColectivo = $linea;
 			$this->UltimaHora = $this->tiempo->time();
+            		$this->saldo -= $ValorBoleto;				//Se resta el boleto
 			return true;
 		}
 		elseif(TienePlus()){
-			$this->UltimoValorPagado = 0.0;
+			$this->UltimoValorPagado = Precios::plus;
 			$this->UltimoColectivo = $linea;
 			$this->UltimaHora = $this->tiempo->time();
 			$this->plus++;
