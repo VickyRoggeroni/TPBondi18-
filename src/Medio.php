@@ -30,27 +30,26 @@ class Medio extends Tarjeta
         } //Limitacion de 5 minutos
         
         if( puedeTransbordo($linea) ){
-				
-			$this->UltimoValorPagado = Precios::transbordo;
-			$this->UltimoColectivo = $linea;
-			$this->UltimaHora = $this->tiempo->time();
-            $this->transbordo = 1;
-			return true;
-		}
-		elseif($this->saldo >= $this->ValorBoleto){
-			$this->UltimoValorPagado = Precios::medio;
-			$this->UltimoColectivo = $linea;
-			$this->UltimaHora = $this->tiempo->time();
-            $this->saldo -= $ValorBoleto;
-			return true;
-		}
-		elseif(TienePlus()){
-			$this->UltimoValorPagado = Precios::plus;
-			$this->UltimoColectivo = $linea;
-			$this->UltimaHora = $this->tiempo->time();
-			$this->plus++;
-			return true;   
-		}
-        return false; //No Se pudo pagar
+		$this->UltimoValorPagado = Precios::transbordo;
+		$this->UltimoColectivo = $linea;
+		$this->UltimaHora = $this->tiempo->time();
+		$this->transbordo = 1;
+		return true;
+	}
+	elseif($this->saldo >= $this->ValorBoleto){
+		$this->UltimoValorPagado = $ValorBoleto;
+		$this->UltimoColectivo = $linea;
+		$this->UltimaHora = $this->tiempo->time();
+        	$this->saldo -= $ValorBoleto;
+		return true;
+	}
+	elseif(TienePlus()){
+		$this->UltimoValorPagado = Precios::plus;
+		$this->UltimoColectivo = $linea;
+		$this->UltimaHora = $this->tiempo->time();
+		$this->plus++;
+		return true;   
+	}
+        return false; //No se pudo pagar
     }
 }
