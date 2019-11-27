@@ -21,8 +21,13 @@ interface TarjetaInterface
      *
      * @return float
      */
+    
+    public function pagarPlus();
+    
     public function obtenerSaldo();
 
     public function restarSaldo($linea);
+    
+    public function puedeTransbordo($linea);
 
 }
