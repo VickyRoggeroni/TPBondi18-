@@ -11,13 +11,11 @@ class Boleto implements BoletoInterface
     protected $cantplus;                //Si se pagaron plus en la ultima recarga
     protected $hora;                    //hora de pago
     protected $idtarjeta;               //id de la tarjeta
-    protected $boletoCompleto;          //Valor de un boleto completo de colectivo para el calculo del plus
+    protected $boletoCompleto           //Valor de un boleto completo de colectivo para el calculo del plus
     protected $linea;                   //Linea del colectivo
     protected $saldo;                   //Saldo restante
-    protected $descripcion;             //Descripcion del boleto plus        //MMMMMMMMM DUDOSO ESTO       
     protected $Tipo;                    //Tipo de tarjeta que se utilizo
     protected $usoPlus;                 //Si se utilizaron plus              //Pa que carajo quiero esto si ya esta el cantPlus.
-    protected $PagoPlus;
 
     public function __construct($colectivo, $tarjeta)
     {
@@ -31,7 +29,6 @@ class Boleto implements BoletoInterface
         $this->boletoCompleto = $tarjeta->boletoCompleto();
         $this->linea = $colectivo->linea();
         $this->saldo = $tarjeta->obtenerSaldo();
-        $this->PagoPlus = "Abona viajes plus " . $this->cantplus * $tarjeta->boletoCompleto() . " y ";
         $this->Tipo = get_class($tarjeta);
     }
 
