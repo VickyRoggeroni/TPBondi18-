@@ -10,7 +10,7 @@ class Tarjeta implements TarjetaInterface
     protected $plus = 0;
     protected $UltimoValorPagado = null;
     protected $UltimaHora = 0;
-    protected $UltimoColectivo;
+    protected $UltimoColectivo = null;
     protected $pagoplus = 0;
     protected $trasbordo = 0;
     protected $id;
@@ -114,20 +114,30 @@ class Tarjeta implements TarjetaInterface
      */
     public function restarSaldo($linea)
     {
-        if( $this->puedeTransbordo($linea) ){
+        if($this->AlcanzaSaldo()){
+		if ($this->puedeTransbordo($linea) == false){
+			$this->UltimoValorPagado = $ValorBoleto;
+			$this->UltimoColectivo = $linea;
+			$this->UltimaHora = $this->tiempo->time();
+        		$this->saldo -= $this->ValorBoleto;	//Se resta el boleto
+			return true;
+		}
+			
+		else {
+			$this->UltimoValorPagado = Precios::transbordo;
+			$this->UltimoColectivo = $linea;
+			$this->UltimaHora = $this->tiempo->time();
+			return true;
+		}
+	}
+	elseif ($this->puedeTransbordo($linea)){
 		$this->UltimoValorPagado = Precios::transbordo;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
 		return true;
-	}
-	elseif($this->AlcanzaSaldo()){
-		$this->UltimoValorPagado = $ValorBoleto;
-		$this->UltimoColectivo = $linea;
-		$this->UltimaHora = $this->tiempo->time();
-        	$this->saldo -= $ValorBoleto;	//Se resta el boleto
-		return true;
-	}
-	elseif($this->TienePlus()){
+	} //Si no le alcanza saldo pero puede hacer transbordo
+	    
+	elseif($this->TienePlus() == true){
 		$this->UltimoValorPagado = Precios::plus;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
@@ -137,15 +147,6 @@ class Tarjeta implements TarjetaInterface
 	else return false; //si no se pudo restar devuelve falso
     }
 
-    /**
-     * Para el caso de la tarjeta ejecuta una funcion que se fija si puede hacer trasbordo.
-     *
-     * @param string $linea
-     *   La linea de colectivo en la que se esta pagando, se utiliza para ver si hizo trasbordo.
-     *
-     * @return float
-     *   El valor del pasaje a pagar.
-     */
 
     /**
      * Funcion para ver si dispone del trasbordo.
@@ -156,7 +157,7 @@ class Tarjeta implements TarjetaInterface
      * @return bool
      *   Si se puede usar transbordo
      */
-    protected function puedeTrasbordo($linea)
+    public function puedeTrasbordo($linea)
     {
         if($this->UltimoValorPagado != 0.0 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
             $this->transbordo = 0; //Se va a resetear el transbordo
@@ -167,11 +168,11 @@ class Tarjeta implements TarjetaInterface
                 return (($this->tiempo->time() - $this->UltimaHora) < 7200);
             }            
 
-            elseif ($this->Tiempo->esDiaDeSemana()){
-                if(($this->Tiempo->EsDeNoche()) == false ){//Si no es de noche, es de dia :)
+            elseif ($this->tiempo->esDiaDeSemana()){
+                if(($this->tiempo->EsDeNoche()) == false ){//Si no es de noche, es de dia :)
                     return (($this->tiempo->time() - $this->UltimaHora) < 3600);                             //Si paso menos de una hora devuelve true
                 }
-                if($this->Tiempo->EsDeNoche()){
+                if($this->tiempo->EsDeNoche()){
                     return (($this->tiempo->time() - $this->UltimaHora) < 7200);
                 }
             }
@@ -182,11 +183,11 @@ class Tarjeta implements TarjetaInterface
         else return false;                                                                                  //Si no cumple las condiciones devuelve false 
     }
 
-    private function AlcanzaSaldo(){                                //Si el saldo es mayor o igual al valor del boleto, entonces le alcanza para pagarlo
+    public function AlcanzaSaldo(){                                //Si el saldo es mayor o igual al valor del boleto, entonces le alcanza para pagarlo
     	return ($this->saldo >= $this->ValorBoleto);
     }
 	
-    private function TienePlus(){                                   //Si uso menos de dos plus devuelve true
+    public function TienePlus(){                                   //Si uso menos de dos plus devuelve true
     	return ($this->plus < 2);
     }
 
