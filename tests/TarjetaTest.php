@@ -69,7 +69,8 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);
         $this->assertEquals($tarjeta->restarSaldo("153"), false);
-    }
+    } //ANDAAAAAAAA
+    
     /*
      * Comprueba que se puede recargargar el viaje plus
      */
@@ -88,7 +89,8 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 47.5);
         $this->assertEquals($tarjeta->restarSaldo("153"), true);            //47,5-32,5=15
         $this->assertEquals($tarjeta->restarSaldo("153"), true);            //viaje plus
-    }
+    } //ANDAAAAAAAA
+    
     /*
     Pruebo muchas cosas de trasbordo, con respecto al funcionamiento con el tiempo
     */
