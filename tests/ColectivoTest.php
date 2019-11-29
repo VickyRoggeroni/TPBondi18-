@@ -29,7 +29,7 @@ class ColectivoTest extends TestCase
         $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta));
         $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
-    } //ANDDDAAAAAA
+    } //ANDDDAAAAAA 
 
     /**
      * Probamos la realizacion de un pago sin saldo y el uso de plus
