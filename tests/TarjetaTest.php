@@ -48,7 +48,7 @@ class TarjetaTest extends TestCase
         $tiempo = new Tiempo();
         $tarjeta = new Tarjeta(0, $tiempo);
 
-        $this->assertFalse($tarjeta->recargar(15));
+        $this->assertFalse($tarjeta->recargar(15.0));
         $this->assertEquals($tarjeta->obtenerSaldo(), 0);
     } // ESTE TEST TAMBIEEEENNNN
     

@@ -2,7 +2,7 @@
 
 namespace TrabajoTarjeta;
 
-class TiempoFalso implements TiempoInterface
+class TiempoFalso implements TiempoFalsoInterface
 {
     protected $tiempo;
 
@@ -70,7 +70,7 @@ class TiempoFalso implements TiempoInterface
      * @return bool
      *   Si es feriado.
      */
-    public function esFeriado()
+    public function EsFeriado()
     {
         $fecha = date('d-m', $this->tiempo);
 

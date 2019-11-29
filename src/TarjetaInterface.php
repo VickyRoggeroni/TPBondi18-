@@ -14,7 +14,7 @@ interface TarjetaInterface
      *   Devuelve TRUE si el monto a cargar es válido, o FALSE en caso de que no
      *   sea valido.
      */
-    public function recargar($monto);
+    public function recargar(float $monto);
 
     /**
      * Devuelve el saldo que le queda a la tarjeta.
