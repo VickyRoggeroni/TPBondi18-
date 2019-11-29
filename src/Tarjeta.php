@@ -182,6 +182,13 @@ class Tarjeta implements TarjetaInterface
         else return false;                                                                                  //Si no cumple las condiciones devuelve false 
     }
 
+    private function AlcanzaSaldo(){                                //Si el saldo es mayor o igual al valor del boleto, entonces le alcanza para pagarlo
+    	return ($this->saldo >= $this->ValorBoleto);
+    }
+	
+    private function TienePlus(){                                   //Si uso menos de dos plus devuelve true
+    	return ($this->plus < 2);
+    }
 
     /**
      * Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto.
