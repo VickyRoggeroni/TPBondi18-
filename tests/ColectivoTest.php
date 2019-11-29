@@ -29,7 +29,7 @@ class ColectivoTest extends TestCase
         $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta));
         $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
-    }
+    } //ANDDDAAAAAA
 
     /**
      * Probamos la realizacion de un pago sin saldo y el uso de plus
@@ -43,8 +43,8 @@ class ColectivoTest extends TestCase
         
         /*Probamos la realizacion de una viaje sin saldo*/
          
-        $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta));
-        $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta));
-        $this->assertEquals($colectivo->pagarCon($tarjeta), false); 
-    }
+        $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta)); // Viaje Plus
+        $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta)); // Viaje Plus
+        $this->assertEquals($colectivo->pagarCon($tarjeta), false); // Viaje Invalido
+    } //ANNNDAAAAA
 }
