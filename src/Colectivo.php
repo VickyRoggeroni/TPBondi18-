@@ -61,5 +61,7 @@ class Colectivo implements ColectivoInterface
         if (!($tarjeta->restarSaldo($this->linea))) { //Si la funcion para restar el saldo retorna false
             return false; //Falla el pago
         }
+        
+        return (new Boleto($this, $tarjeta)); //Crea un boleto con la informacion
     }
 }
