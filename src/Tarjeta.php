@@ -12,9 +12,11 @@ class Tarjeta implements TarjetaInterface
     protected $UltimaHora = 0;
     protected $UltimoColectivo = null;
     protected $pagoplus = 0;
-    protected $trasbordo = 0;
+    protected $transbordo = 0;
     protected $id;
     protected $tiempo;
+    protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3
+    public $PagoExitoso = false;
 
     public function __construct($id, Tiempo $tiempo)
     {
@@ -64,6 +66,7 @@ class Tarjeta implements TarjetaInterface
         }
         $this->pagarPlus(); //Ejecuta la funcion parta pagar plus en caso de que los deba
         // Devuelve true si el monto ingresado es válido
+	$this->TipoBoleto = 0;
         return true;
     }
 
@@ -114,37 +117,46 @@ class Tarjeta implements TarjetaInterface
      */
     public function restarSaldo($linea)
     {
-        if($this->AlcanzaSaldo()){
-		if ($this->puedeTransbordo($linea) == false){
-			$this->UltimoValorPagado = $ValorBoleto;
-			$this->UltimoColectivo = $linea;
-			$this->UltimaHora = $this->tiempo->time();
-        		$this->saldo -= $this->ValorBoleto;	//Se resta el boleto
-			return true;
-		}
-			
-		else {
-			$this->UltimoValorPagado = Precios::transbordo;
-			$this->UltimoColectivo = $linea;
-			$this->UltimaHora = $this->tiempo->time();
-			return true;
-		}
-	}
-	elseif ($this->puedeTransbordo($linea)){
-		$this->UltimoValorPagado = Precios::transbordo;
+        if ($this->puedeTransbordo($linea)){
+		$this->TipoBoleto = 0;
+		$this->transbordo = 1;
+		$this->ValorBoleto = Precios::transbordo;
+		$this->PagoExitoso = true;
+		$this->saldo -= $this->ValorBoleto;
+		$this->UltimoValorPagado = $ValorBoleto;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
-		return true;
-	} //Si no le alcanza saldo pero puede hacer transbordo
+		return $this->PagoExitoso;
+	}
 	    
-	elseif($this->TienePlus() == true){
-		$this->UltimoValorPagado = Precios::plus;
+	if ($this->AlcanzaSaldo()){
+		$this->TipoBoleto = 1;
+		$this->ValorBoleto = Precios::normal;
+		$this->PagoExitoso = true;
+		$this->saldo -= $this->ValorBoleto;
+		$this->UltimoValorPagado = $ValorBoleto;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
-		$this->plus++;
-		return true;   
+		return $this->PagoExitoso;
 	}
-	else return false; //si no se pudo restar devuelve falso
+	    
+	if ($this->TienePlus()){
+		$this->TipoBoleto = 2;
+		$this->plus++;
+		$this->ValorBoleto = Precios::plus;
+		$this->PagoExitoso = true;
+		$this->saldo -= $this->ValorBoleto;
+		$this->UltimoValorPagado = $ValorBoleto;
+		$this->UltimoColectivo = $linea;
+		$this->UltimaHora = $this->tiempo->time();
+		return $this->PagoExitoso;
+	}
+	    
+	else {
+		$this->PagoExitoso = false;
+		$this->TipoBoleto = 3;
+		return $this->PagoExitoso;
+	}
     }
 
 
@@ -159,7 +171,15 @@ class Tarjeta implements TarjetaInterface
      */
     public function puedeTrasbordo($linea)
     {
-        if($this->UltimoValorPagado != 0.0 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
+        if ($this->UltimoColectivo == null){
+		return false;
+	}
+	    
+	if ($this->UltimoValorPagado == 0.0){
+		return false;
+	}
+	    
+	if($this->UltimoValorPagado != 0.0 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
             $this->transbordo = 0; //Se va a resetear el transbordo
         }
 	    
@@ -184,11 +204,22 @@ class Tarjeta implements TarjetaInterface
     }
 
     public function AlcanzaSaldo(){                                //Si el saldo es mayor o igual al valor del boleto, entonces le alcanza para pagarlo
-    	return ($this->saldo >= $this->ValorBoleto);
+    	
+	if ($this->TipoBoleto == 2){ 			  	   //Si el ultimo boleto usado fue un plus no se puede usar el saldo comun
+		return false;
+	}
+	    
+	else if($this->saldo >= $this->ValorBoleto){
+		return true;
+	}
     }
 	
     public function TienePlus(){                                   //Si uso menos de dos plus devuelve true
-    	return ($this->plus < 2);
+    	
+	if($this->plus == 2){
+		return false;
+	}
+	else return true;
     }
 
     /**
