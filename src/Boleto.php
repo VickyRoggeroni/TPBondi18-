@@ -11,7 +11,7 @@ class Boleto implements BoletoInterface
     protected $cantplus;                //Si se pagaron plus en la ultima recarga
     protected $hora;                    //hora de pago
     protected $idtarjeta;               //id de la tarjeta
-    protected $boletoCompleto           //Valor de un boleto completo de colectivo para el calculo del plus
+    protected $boletoCompleto;           //Valor de un boleto completo de colectivo para el calculo del plus
     protected $linea;                   //Linea del colectivo
     protected $saldo;                   //Saldo restante
     protected $Tipo;                    //Tipo de tarjeta que se utilizo
@@ -127,5 +127,4 @@ class Boleto implements BoletoInterface
     {
         return $this->Tipo;
     }
-
-   
+}

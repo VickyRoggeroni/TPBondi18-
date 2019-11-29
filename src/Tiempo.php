@@ -71,6 +71,6 @@ class Tiempo implements TiempoInterface
 
     public function EsDeNoche(){
         $hora = date("H");                             //Muestra la hora en formato 24hrs
-        return ($hora >= 22 || $hora <= 06)            //Entre las 10 de la noche y las 6 de la mañana
+        return ($hora >= 22 || $hora <= 06);            //Entre las 10 de la noche y las 6 de la mañana
     }
 }

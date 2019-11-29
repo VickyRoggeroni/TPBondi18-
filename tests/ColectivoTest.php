@@ -12,7 +12,7 @@ class ColectivoTest extends TestCase
      */
     public function testColectivo()
     {
-        $colectivo = new Colectivo("102 Negro" "Semtur", 37);
+        $colectivo = new Colectivo("102 Negro", "Semtur", 37);
         /*
         Probamos la asignacion de parametros iniciales
          */
@@ -46,4 +46,3 @@ class ColectivoTest extends TestCase
     }
     */
 }
-
