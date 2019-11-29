@@ -37,7 +37,7 @@ class TarjetaTest extends TestCase
         $this->assertTrue($tarjeta->recargar(100));
         $this->assertEquals($tarjeta->obtenerSaldo(), 4110);
 
-    } // HASTA ACA ANDAAAAAAAAAAAA
+    } // ESTE TEST ANDAAAAAAAAAAAA
     
 
     /**
@@ -50,7 +50,8 @@ class TarjetaTest extends TestCase
 
         $this->assertFalse($tarjeta->recargar(15));
         $this->assertEquals($tarjeta->obtenerSaldo(), 0);
-    }
+    } // ESTE TEST TAMBIEEEENNNN
+    
     /*
      * Comprueba que la tarjeta tiene viajes plus
      */
