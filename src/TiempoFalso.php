@@ -2,7 +2,7 @@
 
 namespace TrabajoTarjeta;
 
-class TiempoFalso implements TiempoInterface
+class TiempoFalso implements TiempoFalsoInterface
 {
     protected $tiempo;
 
