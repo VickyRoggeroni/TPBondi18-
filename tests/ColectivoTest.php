@@ -13,6 +13,8 @@ class ColectivoTest extends TestCase
     public function testColectivo()
     {
         $colectivo = new Colectivo("102 Negro", "Semtur", 37);
+        $tiempo = new Tiempo();
+        $tarjeta = new Tarjeta(0, $tiempo);
         /*
         Probamos la asignacion de parametros iniciales
          */
@@ -23,9 +25,9 @@ class ColectivoTest extends TestCase
         Probamos la realizacion de una viaje
         */
          
+        $this->assertTrue($tarjeta->recargar(100));
         $this->assertEquals($colectivo->pagarCon($tarjeta), new Boleto($colectivo, $tarjeta));
-
-        $this->assertEquals($tarjeta->obtenerSaldo(), 559.58);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);
 
     }
 
