@@ -2,7 +2,7 @@
 
 namespace TrabajoTarjeta;
 
-interface TiempoInterface
+interface TiempoFalsoInterface
 {
     public function avanzar($segundos);
     public function time();
