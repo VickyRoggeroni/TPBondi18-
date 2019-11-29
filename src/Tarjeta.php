@@ -169,7 +169,7 @@ class Tarjeta implements TarjetaInterface
      * @return bool
      *   Si se puede usar transbordo
      */
-    public function puedeTrasbordo($linea)
+    public function puedeTransbordo($linea)
     {
         if ($this->UltimoColectivo == null){
 		return false;
