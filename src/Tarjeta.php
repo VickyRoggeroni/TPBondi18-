@@ -114,20 +114,20 @@ class Tarjeta implements TarjetaInterface
      */
     public function restarSaldo($linea)
     {
-        if( puedeTransbordo($linea) ){
+        if( $this->puedeTransbordo($linea) ){
 		$this->UltimoValorPagado = Precios::transbordo;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
 		return true;
 	}
-	elseif(AlcanzaSaldo()){
+	elseif($this->AlcanzaSaldo()){
 		$this->UltimoValorPagado = $ValorBoleto;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
         	$this->saldo -= $ValorBoleto;	//Se resta el boleto
 		return true;
 	}
-	elseif(TienePlus()){
+	elseif($this->TienePlus()){
 		$this->UltimoValorPagado = Precios::plus;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
