@@ -86,9 +86,9 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->restarSaldo("153"), false);            //No le alcanza, no tiene viaje plus
         $this->assertEquals($tarjeta->obtenerSaldo(), 17.5);
         $this->assertTrue($tarjeta->recargar(30));                          //17,5+30=47,5
-        $this->assertEquals($tarjeta->obtenerSaldo(), 47.5);
-        $this->assertEquals($tarjeta->restarSaldo("153"), true);            //47,5-32,5=15
-        $this->assertEquals($tarjeta->restarSaldo("153"), true);            //viaje plus
+        $this->assertEquals($tarjeta->obtenerSaldo(), 15);
+        $this->assertTrue($tarjeta->restarSaldo("153"));            //47,5-32,5=15
+        $this->assertFalse($tarjeta->restarSaldo("153"));            //viaje plus
     } //ANDAAAAAAAA
     
     /*
