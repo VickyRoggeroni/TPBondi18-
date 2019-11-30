@@ -13,7 +13,7 @@ class MedioUniversitario extends Medio
     
     public function restarSaldo($linea){
 
-        if( puedeTransbordo($linea) ){
+        if( Tarjeta::puedeTransbordo($linea) ){
 		$this->UltimoValorPagado = Precios::transbordo; //guarda el ultimo valor
 		$this->UltimoColectivo = $linea; //guarda el ultimo colectivo
 		$this->UltimaHora = $this->tiempo->time(); //guarda la ultima hora
