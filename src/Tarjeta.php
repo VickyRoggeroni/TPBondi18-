@@ -127,11 +127,12 @@ class Tarjeta implements TarjetaInterface
 		$this->UltimaHora = $this->tiempo->time();
 		return $this->PagoExitoso;
 	}
-	    
+
 	if ($this->AlcanzaSaldo()){
 		$this->TipoBoleto = 1;
 		$this->PagoExitoso = true;
-		$this->saldo -= $this->ValorBoleto;
+        $this->saldo -= $this->ValorBoleto;
+        echo $this->saldo;
 		$this->UltimoValorPagado = Precios::normal;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
