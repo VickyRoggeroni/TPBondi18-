@@ -24,6 +24,6 @@ class Completo extends Tarjeta
 
     public function restarSaldo($linea)
     {
-        return $this->ValorBoleto; //Devuelve el valor ya almacenado
+        return $this->true; //Devuelve el valor ya almacenado
     }
 }
