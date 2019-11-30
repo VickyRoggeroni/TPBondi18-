@@ -181,9 +181,9 @@ class TarjetaTest extends TestCase
         $colectivo1->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
         $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 180.316);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
         $colectivo3->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 165.516);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
     }//ANNNDAAAa
 
 
