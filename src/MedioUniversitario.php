@@ -1,7 +1,7 @@
 <?php
 namespace TrabajoTarjeta;
 
-class MedioUniversitario extends Medio
+class MedioUniversitario extends Tarjeta
 {
     protected $DisponiblesDiarios = 0; //Variable que indica la disponibilidad de medios diarios
     protected $ValorBoleto = Precios::medio;
