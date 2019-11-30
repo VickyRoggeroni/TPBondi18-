@@ -22,7 +22,7 @@ class Completo extends Tarjeta
         return 0; //devuelve 0 si es Completo
     }
 
-    protected function calculaValor($linea)
+    public function restarSaldo($linea)
     {
         return $this->ValorBoleto; //Devuelve el valor ya almacenado
     }
