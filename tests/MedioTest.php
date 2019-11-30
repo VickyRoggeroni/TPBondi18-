@@ -25,70 +25,27 @@ class MedioTest extends TestCase
         $tiempo = new TiempoFalso;
         $medio = new Medio(0, $tiempo);
         $this->assertTrue($medio->recargar(50));
-        $this->assertEquals($medio->obtenerSaldo(), 50);
+        $this->assertTrue($medio->recargar(20));
+        $this->assertEquals($medio->obtenerSaldo(), 70);
         $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->obtenerSaldo(), 53.75);             //Resta un medio boleto
+        /* Prueba que si pasaron menos de 5 minutos se cobra un boleto normal */
+        $this->assertEquals($medio->restarSaldo("153"), true);
+        $this->assertEquals($medio->obtenerSaldo(), 21.25);
+        /* Y si pasaron los 5 min, resta medio */
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->obtenerSaldo(), 33.75);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 17.5);
+        $this->assertEquals($medio->restarSaldo("153"), true);          // Resta medio, quedan 5 pesos
+        $tiempo->avanzar(300);                                          // Avanza 5 minutos
+        /* Comprueba que los viajes plus andan */
+        $this->assertEquals($medio->restarSaldo("153"), true);          //Viaje plus 1
+        $this->assertEquals($medio->restarSaldo("153"), true);          //Viaje plus 2
         $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $this->assertTrue($medio->recargar(962.59));
-        $this->assertEquals($medio->obtenerSaldo(), 1120.42);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(300);
-        for (($i = 0); $i < 155; ++$i) {
-            $this->assertEquals($medio->restarSaldo("153"), true);
-            $tiempo->avanzar(300);
-        }
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->restarSaldo("153"), false);
+        $this->assertEquals($medio->restarSaldo("153"), false);         //Viaje invalido
     }
 
-    /**
-     * prueba la limitacion de tiempo de 5 minutos
-     */
-    public function testTiempoInvalido()
-    {
-        $tiempo = new TiempoFalso;
-        $medio = new Medio(0, $tiempo);
-        $this->assertTrue($medio->recargar(962.59));
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(265);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(584);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-    }
 
     /*
-    Se testea si se puede pagar un trasbordo un dia feriado con 90 minutos de espera y cual el texto del boleto
+    Se testea si se puede pagar un trasbordo un dia feriado con 90 minutos de espera
      */
     public function testTrasbordoMedio()
     {
@@ -101,7 +58,7 @@ class MedioTest extends TestCase
         $colectivo2 = new Colectivo(134, "RosarioBus", 52);
 
         /*
-        Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera y el texto del boleto
+        Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera
          */
         $boleto = $colectivo1->pagarCon($tarjeta);
         $this->assertEquals(date('N', $tiempo->time()), '4');
@@ -111,7 +68,6 @@ class MedioTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 183.75);
         $tiempo->avanzar(4200);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 5.3625");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 190.158);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 183.75);
     }
 }
