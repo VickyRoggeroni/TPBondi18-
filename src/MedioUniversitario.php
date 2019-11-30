@@ -9,7 +9,20 @@ class MedioUniversitario extends Medio
     public function franquicia()
     {
         return 2; //devuelve 2 si es Trasbordo
-    }
+	}
+	
+    public function TieneMedioDisponible(){
+		$UltimaFecha = date("d/m/y", $this->UltimaHora); //Guarda Cuando fue la ultima utilizacion del boleto
+		$ActualFecha = date("d/m/y", $this->tiempo->time()); //Guarda la hora actual
+		if ($ActualFecha > $UltimaFecha) {
+			$this->DisponiblesDiarios = 0;
+		} //resetea cantidad de medios disponibles por dia
+		if ($this->DisponiblesDiarios < 2) { //Si dispone de Medios
+			$this->DisponiblesDiarios++; //Le saca uno
+			return true;
+		}
+		else return false;
+	}
     
     public function restarSaldo($linea){
 
@@ -43,18 +56,5 @@ class MedioUniversitario extends Medio
 	}
 
         else return false;       //No se pudo restar el saldo
-    }
-
-    public function TieneMedioDisponible(){
-	$UltimaFecha = date("d/m/y", $this->UltimaHora); //Guarda Cuando fue la ultima utilizacion del boleto
-	$ActualFecha = date("d/m/y", $this->tiempo->time()); //Guarda la hora actual
-	if ($ActualFecha > $UltimaFecha) {
-	    $this->DisponiblesDiarios = 0;
-	} //resetea cantidad de medios disponibles por dia
-	if ($this->DisponiblesDiarios < 2) { //Si dispone de Medios
-	    $this->DisponiblesDiarios++; //Le saca uno
-	    return true;
-	}
-	else return false;
     }
 }
