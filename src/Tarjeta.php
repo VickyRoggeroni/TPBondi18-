@@ -15,7 +15,7 @@ class Tarjeta implements TarjetaInterface
     protected $transbordo = 0;
     protected $id;
     protected $tiempo;
-    protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3
+    protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3, medio = 4, medioU = 5
     public $PagoExitoso = false;
 
     public function __construct($id, $tiempo)
