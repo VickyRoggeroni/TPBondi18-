@@ -177,7 +177,7 @@ class Tarjeta implements TarjetaInterface
         }
 	    
 	if($this->UltimoColectivo != $linea || $this->UltimoValorPagado != 0.0 || $this->transbordo != 1){   //Se fija condiciones
-            if ($this->Tiempo->EsFeriado()){
+            if ($this->tiempo->EsFeriado()){
                 return (($this->tiempo->time() - $this->UltimaHora) < 7200);
             }            
 
