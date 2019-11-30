@@ -7,7 +7,7 @@ class MedioUniTest extends TestCase
 {
 
     /**
-     * Comprueba que la tarjeta con media franquicia Universitaria puede restar boletos, solo 2 medios
+     * Comprueba que la tarjeta con media franquicia Universitaria solo tiene 2 medios y que la restriccion de 5 minutos funciona
      */
     public function testRestarBoletos()
     {
@@ -16,71 +16,22 @@ class MedioUniTest extends TestCase
         $this->assertTrue($medio->recargar(100));
         $this->assertEquals($medio->obtenerSaldo(), 100);
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 92.6);
-        $this->assertEquals($medio->restarSaldo("153"), false);
+        $this->assertEquals($medio->obtenerSaldo(), 83.75);                 // Primer Medio
         $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(300);
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 85.2);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(300);
+        $this->assertEquals($medio->obtenerSaldo(), 51.25);                 // Menos de un minuto, boleto normal
+        $tiempo->avanzar(300);                                              // Avanza 5 min
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 70.4);
-        $tiempo->avanzar(300);
+        $this->assertEquals($medio->obtenerSaldo(), 35);                    // Segundo Medio
+        $tiempo->avanzar(300);                                              // Avanza 5 min
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 55.60);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 40.80);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 26.00);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 11.20);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $this->assertEquals($medio->obtenerSaldo(), 11.20);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 11.20);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-
+        $this->assertEquals($medio->obtenerSaldo(), 2.5);                   // Ya no tiene mas medios, boleto normal
+        $this->assertEquals($medio->restarSaldo("153"), true);              // Viaje Plus 1
+        $this->assertEquals($medio->restarSaldo("153"), true);              // Viaje Plus 2
+        $this->assertEquals($medio->restarSaldo("153"), false);             // Viaje Invalido
     }
 
-    /**
-     * Comprueba que la tarjeta con media franquicia Universitaria puede marcar una vez cada 5 minutos
-     */
-    public function testTiempoInvalido()
-    {
-        $tiempo = new TiempoFalso;
-        $medio = new MedioUniversitario(0, $tiempo);
-        $this->assertTrue($medio->recargar(962.59));
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(300);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(50);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $tiempo->avanzar(265);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-        $tiempo->avanzar(584);
-        $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->restarSaldo("153"), false);
-    }
+
 
     /**
      * Comprueba que la tarjeta con media franquicia Universitaria tiene 2 medios, y cuando pasa el dia se reinician
@@ -90,24 +41,25 @@ class MedioUniTest extends TestCase
         $tiempo = new TiempoFalso;
         $medio = new MedioUniversitario(0, $tiempo);
         $this->assertTrue($medio->recargar(100));
+        $this->assertTrue($medio->recargar(100));
         $tiempo->avanzar(27000);
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 92.6);
-        $tiempo->avanzar(18000);
+        $this->assertEquals($medio->obtenerSaldo(), 183.75);            // Primer medio
+        $tiempo->avanzar(10800);                                        // Avanza 3 hrs
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 85.2);
-        $tiempo->avanzar(20000);
+        $this->assertEquals($medio->obtenerSaldo(), 167.5);             // Segundo medio
+        $tiempo->avanzar(7200);                                         // Avanza 2 hrs
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 70.4);
-        $tiempo->avanzar(21500);
+        $this->assertEquals($medio->obtenerSaldo(), 135);               // Boleto normal
+        $tiempo->avanzar(86400);                                        // 24 hrs
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 63.0);
-        $tiempo->avanzar(1500);
+        $this->assertEquals($medio->obtenerSaldo(), 118.75);            // Primer medio
+        $tiempo->avanzar(7200);                                         // 2 hrs
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 55.6);
-        $tiempo->avanzar(10000);
+        $this->assertEquals($medio->obtenerSaldo(), 102.5);             // Segundo medio
+        $tiempo->avanzar(7200);                                         // 2 hrs
         $this->assertEquals($medio->restarSaldo("153"), true);
-        $this->assertEquals($medio->obtenerSaldo(), 40.8);
+        $this->assertEquals($medio->obtenerSaldo(), 70);                // Viaje normal
     }
 
     /*
@@ -124,19 +76,17 @@ class MedioUniTest extends TestCase
         $colectivo2 = new Colectivo(134, "RosarioBus", 52);
 
         $colectivo1->pagarCon($tarjeta);
-        $this->assertEquals($tarjeta->obtenerSaldo(), 192.6);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 183.75);
         $tiempo->avanzar(4200);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 2.442");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 190.158);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 183.75);
 
         $tiempo->avanzar(38100);
         $colectivo1->pagarCon($tarjeta);
         $this->assertEquals(date('d-m', $tiempo->time()), "01-01");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 175.358);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
         $tiempo->avanzar(3500);
         $boleto2 = $colectivo2->pagarCon($tarjeta);
-        $this->assertEquals($boleto2->obtenerDescripcion(), "Trasbordo Medio 2.442");
-        $this->assertEquals($tarjeta->obtenerSaldo(), 172.916);
+        $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
     }
 }
