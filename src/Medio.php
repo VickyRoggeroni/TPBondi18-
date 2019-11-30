@@ -28,7 +28,7 @@ class Medio extends Tarjeta
 	 /* Comprueba si es el primer viaje realizaxo */
         if($this->UltimoColectivo == null){ //1
             if ($this->AlcanzaSaldo()){ //a
-		        $this->TipoBoleto = 1;
+		        $this->TipoBoleto = 4;
 		        $this->PagoExitoso = true;
 		        $this->saldo -= $this->ValorBoleto;
 		        $this->UltimoValorPagado = Precios::medio;
@@ -57,6 +57,8 @@ class Medio extends Tarjeta
 	 //Si pasaron menos de 5 min es boleto comun
 	if(($this->tiempo->time() - $this->UltimaHora) < 299){ //2
 	    
+		$this->ValorBoleto = Precios::normal; //Cambio para comprobar si le alcanza para un boleto entero
+		
 	        if ($this->AlcanzaSaldo()){ //a
 		        $this->TipoBoleto = 1;
 		        $this->PagoExitoso = true;
@@ -87,6 +89,9 @@ class Medio extends Tarjeta
 	    
 	//No puede marcar otro medio hasta dsp de 5 minutos    
         if(($this->tiempo->time() - $this->UltimaHora) > 299){ //3
+		
+	    $this->ValorBoleto = Precios::medio;  // Vuelvo al valor medio
+		
             if ($this->puedeTransbordo($linea)){ //a
 		        $this->TipoBoleto = 0;
 		        $this->transbordo = 1;
@@ -99,7 +104,7 @@ class Medio extends Tarjeta
 	        } //a
 	    
 	        if ($this->AlcanzaSaldo()){ //b
-		        $this->TipoBoleto = 1;
+		        $this->TipoBoleto = 4;
 		        $this->PagoExitoso = true;
 		        $this->saldo -= $this->ValorBoleto;
 		        $this->UltimoValorPagado = Precios::medio;
