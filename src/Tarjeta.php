@@ -131,7 +131,7 @@ class Tarjeta implements TarjetaInterface
 	if ($this->AlcanzaSaldo()){
 		$this->TipoBoleto = 1;
 		$this->PagoExitoso = true;
-		$this->saldo = ($this->saldo) - ($this->ValorBoleto);
+		$this->saldo -= $this->ValorBoleto;
 		$this->UltimoValorPagado = Precios::normal;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
@@ -177,7 +177,7 @@ class Tarjeta implements TarjetaInterface
         }
 	    
 	if($this->UltimoColectivo != $linea || $this->UltimoValorPagado != 0.0 || $this->transbordo != 1){   //Se fija condiciones
-            if ($this->tiempo->EsFeriado()){
+            if ($this->Tiempo->EsFeriado()){
                 return (($this->tiempo->time() - $this->UltimaHora) < 7200);
             }            
 
