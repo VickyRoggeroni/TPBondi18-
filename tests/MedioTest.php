@@ -58,7 +58,7 @@ class MedioTest extends TestCase
         $colectivo2 = new Colectivo(134, "RosarioBus", 52);
 
         /*
-        Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera
+        Pruebo pagar un trasbordo un dia feriado con 90 minutos de espera 
          */
         $boleto = $colectivo1->pagarCon($tarjeta);
         $this->assertEquals(date('N', $tiempo->time()), '4');
