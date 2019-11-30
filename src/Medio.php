@@ -29,7 +29,7 @@ class Medio extends Tarjeta
             return false;
         } //Limitacion de 5 minutos
         
-        if( puedeTransbordo($linea) ){
+        if( Tarjeta::puedeTransbordo($linea) ){
 		$this->UltimoValorPagado = Precios::transbordo;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
