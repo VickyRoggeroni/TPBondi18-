@@ -18,7 +18,7 @@ class Tarjeta implements TarjetaInterface
     protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3
     public $PagoExitoso = false;
 
-    public function __construct($id, Tiempo $tiempo)
+    public function __construct($id, $tiempo)
     {
         $this->id = $id; //Guarda el ID
         $this->tiempo = $tiempo; //Guarda la variable tiempo la cual le es inyectada
