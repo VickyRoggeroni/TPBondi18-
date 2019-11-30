@@ -1,10 +1,7 @@
 <?php
-
 namespace TrabajoTarjeta;
-
 class Tarjeta implements TarjetaInterface
 {
-
     protected $saldo = 0;
     protected $ValorBoleto = Precios::normal;
     protected $plus = 0;
@@ -17,13 +14,11 @@ class Tarjeta implements TarjetaInterface
     protected $tiempo;
     protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3
     public $PagoExitoso = false;
-
     public function __construct($id, $tiempo)
     {
         $this->id = $id; //Guarda el ID
         $this->tiempo = $tiempo; //Guarda la variable tiempo la cual le es inyectada
     }
-
     /**
      * Funcion para recargar la tarjeta.
      *
@@ -37,7 +32,6 @@ class Tarjeta implements TarjetaInterface
      */
     public function recargar(float $monto)
     {
-
         switch ($monto) { //Diferentes montos a recargar
             case 10:
                 $this->saldo += 10;
@@ -69,7 +63,6 @@ class Tarjeta implements TarjetaInterface
 	$this->TipoBoleto = 0;
         return true;
     }
-
     /**
      * Funcion para pagar plus en caso de deberlos.
      */
@@ -95,7 +88,6 @@ class Tarjeta implements TarjetaInterface
             }
         }
     }
-
     /**
      * Devuelve el saldo que le queda a la tarjeta.
      *
@@ -105,7 +97,6 @@ class Tarjeta implements TarjetaInterface
     {
         return $this->saldo;
     }
-
     /**
      * Resta un boleto a la tarjeta.
      *
@@ -127,12 +118,11 @@ class Tarjeta implements TarjetaInterface
 		$this->UltimaHora = $this->tiempo->time();
 		return $this->PagoExitoso;
 	}
-
+	    
 	if ($this->AlcanzaSaldo()){
 		$this->TipoBoleto = 1;
 		$this->PagoExitoso = true;
-        $this->saldo -= $this->ValorBoleto;
-        echo $this->saldo;
+		$this->saldo -= $this->ValorBoleto;
 		$this->UltimoValorPagado = Precios::normal;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
@@ -156,8 +146,6 @@ class Tarjeta implements TarjetaInterface
 		return $this->PagoExitoso;
 	}
     }
-
-
     /**
      * Funcion para ver si dispone del trasbordo.
      *
@@ -178,10 +166,9 @@ class Tarjeta implements TarjetaInterface
         }
 	    
 	if($this->UltimoColectivo != $linea || $this->UltimoValorPagado != 0.0 || $this->transbordo != 1){   //Se fija condiciones
-            if ($this->Tiempo->EsFeriado()){
+            if ($this->tiempo->EsFeriado()){
                 return (($this->tiempo->time() - $this->UltimaHora) < 7200);
             }            
-
             elseif ($this->tiempo->esDiaDeSemana()){
                 if(($this->tiempo->EsDeNoche()) == false ){//Si no es de noche, es de dia :)
                     return (($this->tiempo->time() - $this->UltimaHora) < 3600);                             //Si paso menos de una hora devuelve true
@@ -190,13 +177,10 @@ class Tarjeta implements TarjetaInterface
                     return (($this->tiempo->time() - $this->UltimaHora) < 7200);
                 }
             }
-
             else return(($this->tiempo->time() - $this->UltimaHora) < 7200);                                 //si no es feriado o dia de semana, es finde, entonces son dos horas el transb
         }
-
         else return false;                                                                                  //Si no cumple las condiciones devuelve false 
     }
-
     public function AlcanzaSaldo(){                                //Si el saldo es mayor o igual al valor del boleto, entonces le alcanza para pagarlo
     	
 	if ($this->TipoBoleto == 2){ 			  	   //Si el ultimo boleto usado fue un plus no se puede usar el saldo comun
@@ -215,7 +199,6 @@ class Tarjeta implements TarjetaInterface
 	}
 	else return true;
     }
-
     /**
      * Setea a 0 el "pago plus". Esta funcion se ejecutara cuando se emite el boleto.
      *
@@ -228,7 +211,6 @@ class Tarjeta implements TarjetaInterface
         $this->pagoplus = 0; // se Reinicia
         return $pagoplusaux; // Se devuelve el auxiliar
     }
-
     /**
      * Devuelve el valor completo del boleto.
      *
@@ -238,7 +220,6 @@ class Tarjeta implements TarjetaInterface
     {
         return $this->ValorBoleto; // Devuelve el valor de un boleto completo
     }
-
     /**
      * Devuelve el ID de la tarjeta.
      *
@@ -248,7 +229,6 @@ class Tarjeta implements TarjetaInterface
     {
         return $this->id; //Devuelve el id de la tarjeta
     }
-
     /**
      * Devuelve el ultimo valor pagado.
      *
@@ -258,7 +238,6 @@ class Tarjeta implements TarjetaInterface
     {
         return $this->UltimoValorPagado; // Devuelve el ultimo valor que se pago
     }
-
     /**
      * Devuelve la ultima hora en la que se uso la tarjeta.
      *
@@ -268,7 +247,6 @@ class Tarjeta implements TarjetaInterface
     {
         return $this->UltimaHora; // Devuelve la ultima hora a la que se pago
     }
-
     /**
      * Devuelve si se utilizo un viaje plus.
      *
