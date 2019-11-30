@@ -120,10 +120,9 @@ class Tarjeta implements TarjetaInterface
         if ($this->puedeTransbordo($linea)){
 		$this->TipoBoleto = 0;
 		$this->transbordo = 1;
-		$this->ValorBoleto = Precios::transbordo;
 		$this->PagoExitoso = true;
-		$this->saldo -= $this->ValorBoleto;
-		$this->UltimoValorPagado = $ValorBoleto;
+		$this->saldo -= Precios::transbordo;
+		$this->UltimoValorPagado = Precios::transbordo;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
 		return $this->PagoExitoso;
@@ -131,10 +130,9 @@ class Tarjeta implements TarjetaInterface
 	    
 	if ($this->AlcanzaSaldo()){
 		$this->TipoBoleto = 1;
-		$this->ValorBoleto = Precios::normal;
 		$this->PagoExitoso = true;
 		$this->saldo -= $this->ValorBoleto;
-		$this->UltimoValorPagado = $ValorBoleto;
+		$this->UltimoValorPagado = Precios::normal;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
 		return $this->PagoExitoso;
@@ -143,10 +141,9 @@ class Tarjeta implements TarjetaInterface
 	if ($this->TienePlus()){
 		$this->TipoBoleto = 2;
 		$this->plus++;
-		$this->ValorBoleto = Precios::plus;
 		$this->PagoExitoso = true;
-		$this->saldo -= $this->ValorBoleto;
-		$this->UltimoValorPagado = $ValorBoleto;
+		$this->saldo -= Precios::plus;
+		$this->UltimoValorPagado = Precios::plus;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
 		return $this->PagoExitoso;
@@ -171,11 +168,7 @@ class Tarjeta implements TarjetaInterface
      */
     public function puedeTransbordo($linea)
     {
-        if ($this->UltimoColectivo == null){
-		return false;
-	}
-	    
-	if ($this->UltimoValorPagado == 0.0){
+        if ($this->UltimoColectivo == null || $this->UltimoValorPagado == 0.0 || $this->UltimoColectivo == $linea){
 		return false;
 	}
 	    
