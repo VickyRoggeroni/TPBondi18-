@@ -33,7 +33,7 @@ class MedioUniversitario extends Medio
 		$this->transbordo = 1; //Marca que el transbordo ya fue usado
 		return true;
 	}
-	elseif(TieneMedioDisponible()){
+	elseif(MedioUniversitario::TieneMedioDisponible()){
 		$this->UltimoValorPagado = $ValorBoleto;
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
