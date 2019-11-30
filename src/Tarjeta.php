@@ -168,15 +168,15 @@ class Tarjeta implements TarjetaInterface
      */
     public function puedeTransbordo($linea)
     {
-        if ($this->UltimoColectivo == null || $this->UltimoValorPagado == 0.0 || $this->UltimoColectivo == $linea){
+        if ($this->UltimoColectivo == null || $this->TipoBoleto == 2 || $this->UltimoColectivo == $linea){
 		return false;
 	}
 	    
-	if($this->UltimoValorPagado != 0.0 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
+	if($this->TipoBoleto != 2 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
             $this->transbordo = 0; //Se va a resetear el transbordo
         }
 	    
-	if($this->UltimoColectivo != $linea || $this->UltimoValorPagado != 0.0 || $this->transbordo != 1){   //Se fija condiciones
+	if($this->UltimoColectivo != $linea || $this->TipoBoleto != 2 || $this->transbordo != 1){   //Se fija condiciones
             if ($this->tiempo->EsFeriado()){
                 return (($this->tiempo->time() - $this->UltimaHora) < 7200);
             }            
