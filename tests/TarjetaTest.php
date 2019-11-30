@@ -164,7 +164,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals(date('N', $tiempo->time()), 7);
         $colectivo2->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 75);
-    }
+    } //ANDAAAAA
     
 //     Pruebo pagar un trasbordo en distintos colectivos con tiempo normal
     public function testUnTrasbordo()
@@ -184,7 +184,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 180.316);
         $colectivo3->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 165.516);
-    }
+    }//ANNNDAAAa
 
 
 }
