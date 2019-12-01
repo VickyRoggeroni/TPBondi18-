@@ -126,7 +126,7 @@ class Tarjeta implements TarjetaInterface
 
     public function restarSaldo($linea)
     {
-        if ($this->puedeTransbordo($linea))
+        if (Transbordo::puedeTransbordo($linea))
         {
             $this->TipoBoleto = 0;
             $this->transbordo = 1;
