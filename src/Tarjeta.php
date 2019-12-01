@@ -15,7 +15,6 @@ class Tarjeta implements TarjetaInterface
     protected $UltimaHora = 0;
     protected $UltimoColectivo = null;
     protected $pagoplus = 0;
-    protected $transbordo = 0;
     protected $id;
     protected $tiempo;
     protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3, medio = 4, medioU = 5
@@ -88,7 +87,6 @@ class Tarjeta implements TarjetaInterface
         if ($this->puedeTransbordo($linea))
         {
             $this->TipoBoleto = 0;
-            $this->transbordo = 1;
             $this->PagoExitoso = true;
             $this->saldo -= Precios::transbordo;
             $this->UltimoValorPagado = Precios::transbordo;
