@@ -2,6 +2,8 @@
 namespace TrabajoTarjeta;
 class Tarjeta implements TarjetaInterface
 {
+    use Transbordo;
+
     protected $saldo = 0;
     protected $ValorBoleto = Precios::normal;
     protected $plus = 0;

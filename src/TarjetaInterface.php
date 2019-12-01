@@ -28,7 +28,7 @@ interface TarjetaInterface
 
     public function restarSaldo($linea);
     
-    //public function puedeTransbordo($linea);
+    public function puedeTransbordo($linea);
     
     public function AlcanzaSaldo();
     
