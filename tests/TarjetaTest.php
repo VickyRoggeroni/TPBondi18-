@@ -171,7 +171,7 @@ class TarjetaTest extends TestCase
     {
         $tiempo = new Tiempo();
         $tiempo->agregarFeriado("01-01-20");
-        $this->AssertFalse($tiempo->esFeriado());
+        $this->AssertFalse($tiempo->EsFeriado());
         $tarjeta = new Tarjeta(0, $tiempo);
         $tarjeta->recargar(100);
         $tarjeta->recargar(100);
