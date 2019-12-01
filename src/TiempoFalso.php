@@ -76,4 +76,18 @@ class TiempoFalso implements TiempoFalsoInterface
 
         return in_array($fecha, $this->feriados);
     }
+         public function esDiaDeSemana(){
+        $fecha = date("l", $this->time());
+        if ($fecha == "Saturday" || $fecha == "Sunday"){
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+    public function EsDeNoche(){
+        $hora = date("H", $this->time());                             //Muestra la hora en formato 24hrs
+        
+        return ($hora == 22 || $hora == 06);            //Entre las 10 de la noche y las 6 de la mañana
+    }
 }

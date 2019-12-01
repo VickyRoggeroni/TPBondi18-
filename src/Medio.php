@@ -25,31 +25,111 @@ class Medio extends Tarjeta
      */
     public function restarSaldo($linea)
     {
-        if (($this->tiempo->time() - $this->UltimaHora) < 299) {
-            return false;
-        } //Limitacion de 5 minutos
-        
-        if( Tarjeta::puedeTransbordo($linea) ){
-		$this->UltimoValorPagado = Precios::transbordo;
-		$this->UltimoColectivo = $linea;
-		$this->UltimaHora = $this->tiempo->time();
-		$this->transbordo = 1;
-		return true;
-	}
-	elseif($this->saldo >= $this->ValorBoleto){
-		$this->UltimoValorPagado = $ValorBoleto;
-		$this->UltimoColectivo = $linea;
-		$this->UltimaHora = $this->tiempo->time();
-        	$this->saldo -= $ValorBoleto;
-		return true;
-	}
-	elseif(TienePlus()){
-		$this->UltimoValorPagado = Precios::plus;
-		$this->UltimoColectivo = $linea;
-		$this->UltimaHora = $this->tiempo->time();
-		$this->plus++;
-		return true;   
-	}
-        return false; //No se pudo pagar
-    }
-}
+	 /* Comprueba si es el primer viaje realizaxo */
+        if($this->UltimoColectivo == null){ //1
+            if ($this->AlcanzaSaldo()){ //a
+		        $this->TipoBoleto = 4;
+		        $this->PagoExitoso = true;
+		        $this->saldo -= $this->ValorBoleto;
+		        $this->UltimoValorPagado = Precios::medio;
+		        $this->UltimoColectivo = $linea;
+		        $this->UltimaHora = $this->tiempo->time();
+		        return $this->PagoExitoso;
+	        } //a
+	    
+	        if ($this->TienePlus()){ //b
+		        $this->TipoBoleto = 2;
+		        $this->plus++;
+		        $this->PagoExitoso = true;
+		        $this->saldo -= Precios::plus;
+		        $this->UltimoValorPagado = Precios::plus;
+		        $this->UltimoColectivo = $linea;
+		        $this->UltimaHora = $this->tiempo->time();
+		        return $this->PagoExitoso;
+            	} //b
+            	else { //c
+		        $this->PagoExitoso = false;
+		        $this->TipoBoleto = 3;
+		        return $this->PagoExitoso;
+	        } //c
+        } //1
+	   
+	 //Si pasaron menos de 5 min es boleto comun
+	if(($this->tiempo->time() - $this->UltimaHora) < 299){ //2
+	    
+		$this->ValorBoleto = Precios::normal; //Cambio para comprobar si le alcanza para un boleto entero
+		
+	        if ($this->AlcanzaSaldo()){ //a
+		        $this->TipoBoleto = 1;
+		        $this->PagoExitoso = true;
+		        $this->UltimoValorPagado = Precios::normal;
+		        $this->saldo -= $this->UltimoValorPagado;
+		        $this->UltimoColectivo = $linea;
+		        $this->UltimaHora = $this->tiempo->time();
+		        return $this->PagoExitoso;
+	        } //a
+	    
+	        if ($this->TienePlus()){ //b
+		        $this->TipoBoleto = 2;
+		        $this->plus++;
+		        $this->PagoExitoso = true;
+		        $this->saldo -= Precios::plus;
+		        $this->UltimoValorPagado = Precios::plus;
+		        $this->UltimoColectivo = $linea;
+		        $this->UltimaHora = $this->tiempo->time();
+		        return $this->PagoExitoso;
+	        } //b
+	    
+	        else { //c
+		        $this->PagoExitoso = false;
+		        $this->TipoBoleto = 3;
+		        return $this->PagoExitoso;
+	        } //c
+	} //2
+	    
+	//No puede marcar otro medio hasta dsp de 5 minutos    
+        if(($this->tiempo->time() - $this->UltimaHora) > 299){ //3
+		
+	    $this->ValorBoleto = Precios::medio;  // Vuelvo al valor medio
+		
+            if ($this->puedeTransbordo($linea)){ //a
+		        $this->TipoBoleto = 0;
+		        $this->transbordo = 1;
+		        $this->PagoExitoso = true;
+		        $this->saldo -= Precios::transbordo;
+		        $this->UltimoValorPagado = Precios::transbordo;
+		        $this->UltimoColectivo = $linea;
+		        $this->UltimaHora = $this->tiempo->time();
+		        return $this->PagoExitoso;
+	        } //a
+	    
+	        if ($this->AlcanzaSaldo()){ //b
+		        $this->TipoBoleto = 4;
+		        $this->PagoExitoso = true;
+		        $this->saldo -= $this->ValorBoleto;
+		        $this->UltimoValorPagado = Precios::medio;
+		        $this->UltimoColectivo = $linea;
+		        $this->UltimaHora = $this->tiempo->time();
+		        return $this->PagoExitoso;
+	        } //b
+	    
+	        if ($this->TienePlus()){ //c
+		        $this->TipoBoleto = 2;
+		        $this->plus++;
+		        $this->PagoExitoso = true;
+		        $this->saldo -= Precios::plus;
+		        $this->UltimoValorPagado = Precios::plus;
+		        $this->UltimoColectivo = $linea;
+		        $this->UltimaHora = $this->tiempo->time();
+		        return $this->PagoExitoso;
+	        } //c
+	    
+	        else { //d
+		        $this->PagoExitoso = false;
+		        $this->TipoBoleto = 3;
+		        return $this->PagoExitoso;
+	        } //d
+        } //3
+	  
+    } //LLAVE FUNCION
+} //Lave de la clase

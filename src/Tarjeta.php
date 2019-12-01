@@ -12,7 +12,7 @@ class Tarjeta implements TarjetaInterface
     protected $transbordo = 0;
     protected $id;
     protected $tiempo;
-    protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3
+    protected $TipoBoleto = 0; //transbordo = 0, normal = 1, plus = 2, invalido = 3, medio = 4, medioU = 5
     public $PagoExitoso = false;
     public function __construct($id, $tiempo)
     {
@@ -157,15 +157,15 @@ class Tarjeta implements TarjetaInterface
      */
     public function puedeTransbordo($linea)
     {
-        if ($this->UltimoColectivo == null || $this->UltimoValorPagado == 0.0 || $this->UltimoColectivo == $linea){
+        if ($this->UltimoColectivo == null || $this->TipoBoleto == 2 || $this->UltimoColectivo == $linea){
 		return false;
 	}
 	    
-	if($this->UltimoValorPagado != 0.0 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
+	if($this->TipoBoleto != 2 && $this->transbordo == 1){ //Si ya se uso un transbordo, pero despues se volvio a usar la tarjeta
             $this->transbordo = 0; //Se va a resetear el transbordo
         }
 	    
-	if($this->UltimoColectivo != $linea || $this->UltimoValorPagado != 0.0 || $this->transbordo != 1){   //Se fija condiciones
+	if($this->UltimoColectivo != $linea || $this->TipoBoleto != 2 || $this->transbordo != 1){   //Se fija condiciones
             if ($this->tiempo->EsFeriado()){
                 return (($this->tiempo->time() - $this->UltimaHora) < 7200);
             }            
