@@ -21,7 +21,6 @@ interface TarjetaInterface
      *
      * @return float
      */
-    
     public function pagarPlus();
     
     public function obtenerSaldo();

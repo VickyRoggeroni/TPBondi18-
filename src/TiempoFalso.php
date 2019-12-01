@@ -21,6 +21,7 @@ class TiempoFalso implements TiempoFalsoInterface
         '08-12', //  Inmaculada Concepción de María
         '25-12', //  Navidad
     );
+
     /**
      * Setea el tiempo con el que queres que comienze la cuenta.
      *
@@ -76,16 +77,22 @@ class TiempoFalso implements TiempoFalsoInterface
 
         return in_array($fecha, $this->feriados);
     }
-         public function esDiaDeSemana(){
+
+    public function esDiaDeSemana()
+    {
         $fecha = date("l", $this->time());
-        if ($fecha == "Saturday" || $fecha == "Sunday"){
+        if ($fecha == "Saturday" || $fecha == "Sunday")
+        {
             return false;
         }
-        else {
+        else
+        {
             return true;
         }
     }
-    public function EsDeNoche(){
+
+    public function EsDeNoche()
+    {
         $hora = date("H", $this->time());                             //Muestra la hora en formato 24hrs
         
         return ($hora == 22 || $hora == 06);            //Entre las 10 de la noche y las 6 de la mañana
