@@ -77,7 +77,7 @@ class MedioUniversitario extends Tarjeta
 	   
             $this->ValorBoleto = Precios::medio;
 		
-            if (Transbordo::puedeTransbordo($linea)){ //a
+            if ($this->puedeTransbordo($linea)){ //a
 		        $this->TipoBoleto = 0;
 		        $this->transbordo = 1;
 		        $this->PagoExitoso = true;
