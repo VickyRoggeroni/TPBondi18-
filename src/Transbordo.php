@@ -2,7 +2,7 @@
 
 namespace TrabajoTarjeta;
 
-class Transbordo extends Tarjeta
+class Transbordo extends Tarjeta implements TransbordoInterface
 {
     /**
      * Funcion para ver si dispone del trasbordo.
