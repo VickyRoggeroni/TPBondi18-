@@ -108,7 +108,7 @@ class Tarjeta implements TarjetaInterface
      */
     public function restarSaldo($linea)
     {
-        if (Transbordo::puedeTransbordo($linea)){
+        if ($this->puedeTransbordo($linea)){
 		$this->TipoBoleto = 0;
 		$this->transbordo = 1;
 		$this->PagoExitoso = true;
@@ -117,7 +117,7 @@ class Tarjeta implements TarjetaInterface
 		$this->UltimoColectivo = $linea;
 		$this->UltimaHora = $this->tiempo->time();
 		return $this->PagoExitoso;
-	}
+        }
 	    
 	if ($this->AlcanzaSaldo()){
 		$this->TipoBoleto = 1;
