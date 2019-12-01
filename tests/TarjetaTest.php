@@ -187,5 +187,22 @@ class TarjetaTest extends TestCase
     }//ANNNDAAAa
 
 
+    public function testTransbordoDeNoche()
+    {
+        $tiempo = new TiempoFalso();
+        $tarjeta = new Tarjeta(0, $tiempo);
+        $colectivo1 = new Colectivo(122, "Semtur", 37);
+        $colectivo2 = new Colectivo(134, "RosarioBus", 52);
+        $tarjeta->recargar(100);
+        $this->assertEquals(date('N', $tiempo->time()), 4);             //Verifica dia
+        $tiempo->avanzar(9000);                                         //Avanza para que sean las 02:30
+        $this->assertEquals(date('H:i', $tiempo->time()), "02:30");     //Verifica hora
+        $colectivo1->pagarCon($tarjeta);                                //Paga el colectivo
+        $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);            //Verifica saldo
+        $tiempo->avanzar(5400);                                         //Avanza hora y media
+        $colectivo2->pagarCon($tarjeta);                                //Paga nuevo colectivo
+        $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);            //Verifica saldo
+        
+    }
 }
 
