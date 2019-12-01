@@ -13,7 +13,6 @@ trait Transbordo
      * @return bool
      *   Si se puede usar transbordo
      */
-
     public function puedeTransbordo($linea)
     {
         if ($this->UltimoColectivo == null || $this->TipoBoleto == 2 || $this->UltimoColectivo == $linea)

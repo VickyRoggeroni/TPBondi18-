@@ -4,7 +4,6 @@ namespace TrabajoTarjeta;
 
 interface TiempoInterface
 {
-
     public function time();
 
     public function agregarFeriado($dia);
@@ -14,5 +13,4 @@ interface TiempoInterface
     public function esDiaDeSemana();
     
     public function EsDeNoche();
-
 }

@@ -64,12 +64,14 @@ class Tiempo implements TiempoInterface
         return in_array($fecha, $this->feriados);
     }
     
-    public function esDiaDeSemana(){
+    public function esDiaDeSemana()
+    {
         $fecha = date("l");                             
         return ($fecha != "Saturday" || $fecha != "Sunday");
     }
 
-    public function EsDeNoche(){
+    public function EsDeNoche()
+    {
         $hora = date("H");                             //Muestra la hora en formato 24hrs
         return ($hora >= 22 || $hora <= 06);            //Entre las 10 de la noche y las 6 de la mañana
     }
