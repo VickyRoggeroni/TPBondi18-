@@ -88,7 +88,8 @@ class TarjetaTest extends TestCase
         $this->assertTrue($tarjeta->recargar(100));                         //17,5 + 100 - (dos viajes plus) = 52.5
         $this->assertEquals($tarjeta->obtenerSaldo(), 52.5);
         $this->assertTrue($tarjeta->restarSaldo("153"));
-        $this->assertFalse($tarjeta->restarSaldo("153"));                   //viaje plus
+        $this->assertEquals($tarjeta->obtenerSaldo(), 20);
+        $this->assertTrue($tarjeta->restarSaldo("153"));            //Viaje plus
     } //ANDAAAAAAAA
     
     /*
@@ -127,8 +128,6 @@ class TarjetaTest extends TestCase
         
         //Prueba pagar trasbordo un dia normal despues de los 60 minutos
         $tiempo->avanzar(7200);
-        $tarjeta->recargar(100);
-        $tarjeta->recargar(100);
         $colectivo1->pagarCon($tarjeta);
         $this->assertEquals($tarjeta->obtenerSaldo(), 70);
         $tiempo->avanzar(5300);
