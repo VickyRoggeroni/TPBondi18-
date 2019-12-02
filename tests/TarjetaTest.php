@@ -157,7 +157,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 167.5);
     }//ANNNDAAAa
 
-
+// Pruebo que el transbordo sea vlido por 2 horas cuando es entre lass 22hrs y las 6hrs
     public function testTransbordoDeNoche()
     {
         $tiempo = new TiempoFalso();
@@ -174,8 +174,19 @@ class TarjetaTest extends TestCase
         $colectivo2->pagarCon($tarjeta);                                //Paga nuevo colectivo
         $this->assertEquals($tarjeta->obtenerSaldo(), 67.5);            //Verifica saldo
         
+        
+        // Verifica que dsp de las 6 de la mañana el transbordo es por una hora otra vez
+        $tiempo->avanzar(9000);                                         //Avanza dos horas y media
+        $this->assertEquals(date('H:i', $tiempo->time()), "06:30");     //Verifica hora
+        $colectivo2->pagarCon($tarjeta);                                //Paga nuevo colectivo
+        $this->assertEquals($tarjeta->obtenerSaldo(), 35);              //Verifica saldo
+        $tiempo->avanzar(5400);                                         //Avanza hora y media
+        $colectivo2->pagarCon($tarjeta);                                //Paga nuevo colectivo
+        $this->assertEquals($tarjeta->obtenerSaldo(), 2.5);             //Verifica saldo
+        
     }
     
+  // Pruebo que el transbordo es valido por 2 hrs los fines de semana
     public function testTransbordoFinde()
     {
         
@@ -212,7 +223,7 @@ class TarjetaTest extends TestCase
         $this->assertEquals($tarjeta->obtenerSaldo(), 135);         // Verifica boleto
     }
     
-    
+   // Pruebo que el transbordo es valido por 2 horas cuando es feriado
     public function testTransbordoFeriado()
     {
         $tiempo = new TiempoFalso(0);
